@@ -1,0 +1,55 @@
+
+setupData<-function(Tag.Detections, Tag.Metadata, Station.Information, tz="UTC", crs=NULL){
+
+  suppressPackageStartupMessages({require(lubridate);require(dplyr); require(raster)})
+
+  object<-
+    structure(
+      list(
+        Tag.Detections = as_tibble(Tag.Detections) %>%
+          transmute(Date.Time = lubridate::ymd_hms(detection_timestamp, tz=tz),
+                    Tag.ID = tag_id,
+                    Transmitter.Name = transmitter_id,
+                    Station.Name = station_name,
+                    Receiver = receiver_name,
+                    Latitude = latitude,
+                    Longitude = longitude,
+                    Sensor.Value = sensor_value,
+                    Sensor.Unit = sensor_unit),
+
+        Tag.Metadata = as_tibble(Tag.Metadata) %>%
+          transmute(Tag.ID = tag_id,
+                    Sci.Name = scientific_name,
+                    Common.Name = common_name,
+                    Tag.Project = tag_project_name,
+                    Release.Latitude = release_latitude,
+                    Release.Longitude = release_longitude,
+                    Release.Date = lubridate::date(ymd_hms(taginfo$ReleaseDate, tz=tz)),
+                    Tag.Life = tag_expected_life_time_days,
+                    Tag.Status = tag_status,
+                    Sex = sex,
+                    Bio = measurement),
+
+        Station.Information = as_tibble(Station.Information) %>%
+          transmute(Station.Name = station_name,
+                    Receiver = receiver_name,
+                    Installation = installation_name,
+                    Receiver.Project = project_name,
+                    Deployment.Date = lubridate::ymd_hms(deploymentdatetime_timestamp, tz=tz),
+                    Recovery.Date = lubridate::ymd_hms(recoverydatetime_timestamp, tz=tz),
+                    Station.Latitude = station_latitude,
+                    Station.Longitude = station_longitude,
+                    Receiver.Status = status)),
+
+      class="ATT")
+
+  if(inherits(crs, "CRS")){
+    attr(object, "CRS")<-crs
+    }else{
+      message("Geographic projection for detection positions not recognised, reverting to WGS84 global coordinate reference system")
+      attr(object, "CRS")<-CRS("+init=epsg:4326")
+    }
+
+  return(object)
+}
+

@@ -1,0 +1,10 @@
+Package: ATT
+Type: Package
+Title: Animal Tracking Toolbox: analysing node-based telemetry data
+Version: 0.1.0
+Author: Vinay Udyawer, Ross Dwyer, Xavier Hoenner
+Maintainer: Vinay Udyawer <v.udyawer@aims.gov.au>
+Description: The Animal Tracking Toolbox is a collection of functions that allow for the estimation of standardised detection, dispersal and activity space metrics from passive, node-based telemetry datasets (e.g. Acoustic telemetry, Radio towers, PIT antenna arrays). This package is designed to estimate metrics of detection, dispersal, and activity space using standard techniques that can be used for cross species, location and project comparisons. The tools are also designed to process large amounts of detection data like that stored in cooperative large-scale telemetry networks.
+License: GPL-2
+Encoding: UTF-8
+LazyData: true

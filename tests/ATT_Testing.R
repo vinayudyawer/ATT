@@ -14,8 +14,8 @@ source("R/COA.R")
 source("R/HRprocess.R")
 source("R/HRSummary.R")
 
-ATTdata<-setupData(tagdata, taginfo, statinfo)
-# ATTdata<-setupData(tag1, taginfo, statinfo)
+# ATTdata<-setupData(tagdata, taginfo, statinfo)
+ATTdata<-setupData(tag1, taginfo, statinfo)
 
 d<-detectionSummary(ATTdata)
 dd<-dispersalSummary(ATTdata)

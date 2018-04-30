@@ -1,7 +1,7 @@
 
 abacusPlot<-function(ATTdata, theme="theme_linedraw", xlab="Date", ylab="Tag ID", det.col=2, tag.col=8, facet=FALSE, new.window=TRUE, ...){
 
-  suppressPackageStartupMessages({sapply(c("dplyr", "ggplot2"), require, character.only=TRUE)})
+  suppressPackageStartupMessages({require(dplyr); require(ggplot2)})
 
   if(!inherits(ATTdata, "ATT"))
     stop("Oops! Input data needs to be an 'ATT' object.

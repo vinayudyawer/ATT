@@ -1,7 +1,7 @@
 
 COA<-function (ATTdata, timestep=60, split=FALSE){
 
-  suppressPackageStartupMessages({sapply(c("dplyr", "lubridate"), require, character.only=TRUE)})
+  suppressPackageStartupMessages({require(dplyr); require(lubridate)})
 
   if(!inherits(ATTdata, "ATT"))
     stop("Oops! Input data needs to be an 'ATT' object.

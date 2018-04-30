@@ -1,7 +1,7 @@
 
 setupData<-function(Tag.Detections, Tag.Metadata, Station.Information, tz="UTC", crs=NULL){
 
-  suppressPackageStartupMessages({require(lubridate); require(dplyr); require(raster)})
+  suppressPackageStartupMessages({require(lubridate);require(dplyr); require(raster)})
 
   object<-
     structure(

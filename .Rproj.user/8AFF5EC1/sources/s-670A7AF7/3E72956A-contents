@@ -1,9 +1,7 @@
-#' Plot daily detections over time (or across recievers)
-#'
-#' @description Produces an abacus plot to visualise patterns of detection over time or across signal receivers
+#' Producing a quick abacus plot.
 #'
 #' @param ATTdata input 'ATT' object containing tag detection, metadata and station information.
-#' @param theme ggplot theme used in plot (default = "theme_linedraw")
+#' @param theme
 #' @param xlab x axis label
 #' @param ylab y axis label
 #' @param det.col color of points indicating detections (default = "red")

@@ -33,7 +33,7 @@
 #' abacusPlot(ATTdata)
 #'
 #'
-abacusPlot<-function(ATTdata, id=NULL, theme="theme_linedraw", xlab="Date", ylab="Tag ID", det.col=2, tag.col=8, facet=FALSE, new.window=TRUE, ...){
+abacusPlot<-function(ATTdata, id=NULL, theme="theme_linedraw", xlab=NULL, ylab=NULL, det.col=2, tag.col=8, facet=FALSE, new.window=TRUE, ...){
   if(!inherits(ATTdata, "ATT"))
     stop("Oops! Input data needs to be an 'ATT' object.
          \nSet up your data first using setupData() before running this operation")
@@ -57,14 +57,14 @@ abacusPlot<-function(ATTdata, id=NULL, theme="theme_linedraw", xlab="Date", ylab
 
   if(facet){
     ggplot(combdata) +
-      xlab(xlab) + ylab(ylab) +
+      xlab(ifelse(!is.null(xlab), xlab, "Date")) + ylab(ifelse(!is.null(ylab), ylab, "Station Name")) +
       geom_point(aes(x = date(Date.Time), y = as.factor(Station.Name)), col=det.col, ...) +
       facet_wrap(~Tag.ID) +
       scale_x_date(date_labels= "%b\n%Y", minor_breaks = NULL) +
       eval(call(theme))
   }else{
     ggplot(combdata) +
-      xlab(xlab) + ylab(ylab) +
+      xlab(ifelse(!is.null(xlab), xlab, "Date")) + ylab(ifelse(!is.null(ylab), ylab, "Tag ID")) +
       geom_point(aes(x = date(Date.Time), y = as.factor(Tag.ID)), col=det.col, ...) +
       geom_point(data= ss, aes(x = Start, y = as.factor(Tag.ID)), pch="|", col=tag.col, cex=3) +
       geom_point(data= ss, aes(x = End, y = as.factor(Tag.ID)), pch="|", col=tag.col, cex=3) +

@@ -20,12 +20,10 @@ we provide a tool to enable standardisation of the calculation of these
 commonly used metrics and provide an analytical tool to facilitate.
 
 <br>
-<br>
 
-<img src="images/Fig1b.png" width="800" />
+<img src="images/Fig1b.png"/>
 <sub>Figure 1. Visual summary of workflow to calculate standardised metrics using the Animal Tracking Toolbox.</sub>
 
-<br>
 <br>
 
 The Animal Tracking Toolbox (ATT) is a collection of functions created
@@ -40,12 +38,10 @@ visualise standardised metrics of movement and activity space within and
 between species tracked at multiple locations.
 
 <br>
-<br>
 
-<img src="images/Fig2.png" width="500" />
+<img src="images/Fig2.png"/>
 <sub>Figure 2. Overall activity space metric plots for multiple species tagged at multiple locations (a) Yellowfin Bream (n=1), (b) Yellowtail Kingfish (n=1), (c) Grey Reef Shark (n=1) and (d) Bull Shark (n=1) output using the ATT. Coloured points represent Centres of Activity (60 min time steps) with darker shapes representing core activity space (50% contour of Brownian bridge kernel utilisation distribution; BBKUD) and lighter shapes representing the extent of activity space (95% contour of BBKUD). Black polygons represent overall Minimum Convex Polygons from detection data. Open circles represent locations of VR2W receivers deployed within the IMOS ATF infrastructure and associated research installations.</sub>
 
-<br>
 <br>
 
 The ATT was developed to preprocess and calculate standardised metrics
@@ -128,7 +124,7 @@ detSum$Subsetted
 abacusPlot(ATTdata)
 
 ```
-<img src="images/Fig3.png" width="700" />
+<img src="images/Fig3.png"/>
 
 
 Calculating dispersal metrics

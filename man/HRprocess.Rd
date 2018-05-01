@@ -19,12 +19,12 @@ HRprocess(cenac, utm, ll, type = "MCP", h = 200, ext = 2, grid = 200,
 \item{h}{smoothing factor (in m) associated with error associated with reciever range of passive telemetry system.
 Defaults to 200 m if none provided.}
 
-\item{ext}{spatial extent used to calculate probability density metrics of activity space ("fKUD", "BBKUD")}
+\item{ext}{spatial extent used to calculate probability density metrics of activity space ('fKUD', 'BBKUD')}
 
-\item{grid}{grid size used to calculate probability density metrics of activity space ("fKUD", "BBKUD")}
+\item{grid}{grid size used to calculate probability density metrics of activity space ('fKUD', 'BBKUD')}
 
 \item{sub}{temporal subset used to calculate subsetted activity space metrics.
-Currently supports monthly ("%Y-%m") or weekly ("%Y-%W"). Defaults to monthly.}
+Currently supports monthly ('%Y-%m') or weekly ('%Y-%W'). Defaults to monthly.}
 
 \item{cont}{contours of activity space models to estimate areas. Defaults to 50% and 95% contours}
 
@@ -40,7 +40,7 @@ this may take a long time depending on size of dataset.}
 \value{
 Produces a list of 2 tibbles containing Overall (full tag life) and Subsetted (user-defined temporal subsets) metrics of activity space.
 If storepoly=TRUE additional object within list containing spatial objects (MCP polygons or KUD rasters).
-Temporal subsets are currently restricted to monthly ("%Y-%m") or weekly ("%Y-%W"). Cumulative measures across temporal subsets
+Temporal subsets are currently restricted to monthly ('%Y-%m') or weekly ('%Y-%W'). Cumulative measures across temporal subsets
 included if cumulative=TRUE.
 }
 \description{

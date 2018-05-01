@@ -9,19 +9,19 @@
 #'   "fKUD" for fixed KUD and "BBKUD" for Brownian bridge KUD. Defaults to "MCP" when no value provided.
 #' @param cont contours of activity space models to estimate areas. Defaults to 50% and 95% contours
 #' @param sub temporal subset used to calculate subsetted activity space metrics.
-#'   Currently supports monthly ("%Y-%m") or weekly ("%Y-%W"). Defaults to monthly.
+#'   Currently supports monthly ('%Y-%m') or weekly ('%Y-%W'). Defaults to monthly.
 #' @param cumulative TRUE/FALSE, should the operation calculate cumulative activity space areas. Caution
 #'   this may take a long time depending on size of dataset.
 #' @param storepoly TRUE/FALSE, should activity space metrics be saved as spatial objects (polygons or rasters)
 #' @param h smoothing factor (in m) associated with error associated with reciever range of passive telemetry system.
 #'   Defaults to 200 m if none provided.
-#' @param ext spatial extent used to calculate probability density metrics of activity space ("fKUD", "BBKUD")
-#' @param grid grid size used to calculate probability density metrics of activity space ("fKUD", "BBKUD")
+#' @param ext spatial extent used to calculate probability density metrics of activity space ('fKUD', 'BBKUD')
+#' @param grid grid size used to calculate probability density metrics of activity space ('fKUD', 'BBKUD')
 #' @param div sig1 divisor used to correct BBKUD estimates.
 #'
 #' @return Produces a list of 2 tibbles containing Overall (full tag life) and Subsetted (user-defined temporal subsets) metrics of activity space.
 #'   If storepoly=TRUE additional object within list containing spatial objects (MCP polygons or KUD rasters).
-#'   Temporal subsets are currently restricted to monthly ("%Y-%m") or weekly ("%Y-%W"). Cumulative measures across temporal subsets
+#'   Temporal subsets are currently restricted to monthly ('%Y-%m') or weekly ('%Y-%W'). Cumulative measures across temporal subsets
 #'   included if cumulative=TRUE.
 #'
 #' @seealso Input data needs to be setup using \code{\link{setupData}}, and COAs calculated using \code{\link{COA}}.

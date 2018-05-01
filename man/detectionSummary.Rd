@@ -10,12 +10,12 @@ detectionSummary(ATTdata, sub = "\%Y-\%m")
 \item{ATTdata}{an 'ATT' object created using \code{\link{setupData}} containing
 tag detection data, metadata and station information}
 
-\item{sub}{argument to define temporal subsets. Temporal subsets are currently restricted to monthly ("%Y-%m") or weekly ("%Y-%W").
+\item{sub}{argument to define temporal subsets. Temporal subsets are currently restricted to monthly ('%Y-%m') or weekly ('%Y-%W').
 Defaults to monthly if none is provided.}
 }
 \value{
 Produces a list of tibbles containing Overall (full tag life) and Subsetted (user-defined temporal subsets) metrics of detection.
-Temporal subsets are currently restricted to monthly ("%Y-%m") or weekly ("%Y-%W").
+Temporal subsets are currently restricted to monthly ('%Y-%m') or weekly ('%Y-%W').
 }
 \description{
 Produce standard metrics of detection. Metrics include Number of detections, Number of receiver stations

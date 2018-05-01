@@ -157,7 +157,7 @@ kud_est<-HRSummary(COAdata, projCRS=CRS("+init=epsg:3577"), type="fKUD", cumulat
 kud_est<-HRSummary(COAdata, projCRS=CRS("+init=epsg:3577"), type="BBKUD", cont=c(20,50,95), storepoly=TRUE)
 
 ```
-**Plotting activity space function coming soon!!**
+***More functions to visualise standardised metrics coming soon!!***
 
 <br>
 <br>

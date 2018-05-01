@@ -23,7 +23,7 @@ commonly used metrics and provide an analytical tool to facilitate.
 <br>
 
 <center>
-<img src="images/Fig1b.png" style="width:70.0%" />
+<img src="images/Fig1b.png" style="width:50.0%" />
 </center>
 
 <br>
@@ -44,7 +44,7 @@ between species tracked at multiple locations.
 <br>
 
 <center>
-<img src="images/Fig2.png" style="width:60.0%" />
+<img src="images/Fig2.png" style="width:30.0%" />
 </center>
 
 <br>

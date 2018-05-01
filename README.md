@@ -3,7 +3,7 @@ Animal Tracking Toolbox Quick Guide
 ===================================
 
 Background
---------
+------------
 
 Passive telemetry studies use detection patterns of a tagged animal
 within a fixed array to understand movement patterns, habitat use and
@@ -22,7 +22,7 @@ commonly used metrics and provide an analytical tool to facilitate.
 <br>
 <br>
 
-<center><img src="images/Fig1b.png" width="800" /></center>
+ <div style="text-align:center"><img src="images/Fig1b.png" width="700" />
 
 <br>
 <br>
@@ -41,9 +41,7 @@ between species tracked at multiple locations.
 <br>
 <br>
 
-<center>
-<img src="images/Fig2.png" width="600" />
-</center>
+<img src="images/Fig2.png" width="600" /></div>
 
 <br>
 <br>
@@ -75,9 +73,45 @@ install.packages("devtools")
 devtools::install_github("vinayudyawer/ATT")
 ```
 
-Input data format
+Functions within the toolbox
 ------------
 
+The Animal Tracking Toolbox is comprised of five main functions that work in series:
+
+1.  **`setData()`** sets up data and produces a single list 'ATT' object so detection data, tag metadata and station information are all in one place. Initialises data for use with other functions in the toolbox.
+
+2.  **`detectionSummary()`** calculates standard detection metrics using an 'ATT' object. Produces a list with detection metrics calculated over the full tag life and within user-defined temporal subset (i.e. monthly and weekly metrics).
+
+3.  **`dispersalSummary()`** calculates standard dispersal metrics using an 'ATT' object. Produces a tibble dataframe with dispersal distance and bearing measurements between consecutive detections as well as between each detection and release location (if provided in 'taginfo').
+
+4.  **`COA()`** estimates short-term Centers of Activity using an 'ATT' object. Based on technique described in [*Simpfendorfer et al. 2002*](http://www.nrcresearchpress.com/doi/abs/10.1139/f01-191#.WuggLS_L2XQ). Produces a 'COA' tibble dataframe object with centers of activity estimated within user-defined timesteps.
+
+5.  **`HRSummary()`** calculates standardised activity space metrics using a 'COA' object. Produces a list with activity space metrics calculated over the full tag life and within user-defined temporal subsets (i.e. monthly and weekly). Technique of calculating activity space metrics include minimum convex polygons (*MCP*), fixed kernel utilisation distributions (*fKUD*) or Brownian bridge kernel utilisation distributions (*BBKUD*). Cumulative metrics of activity space is also calculated with `cumulative` argument. Spatial polygons and raster objects for further plotting are also produced with `storepoly` argument.
+
+<br>
+
+In addition to these functions, there are additional functions to help plot detection summaries using an abacus plot (**`abacusPlot()`**). We are working on more functions to help visualise dispersal summaries and activity spaces calculated... Watch this space!!
+
+<br>
+<br>
+
+Usage
+------------
+
+```{r, include=TRUE, eval=TRUE}
+## Input example datasets
+data(tagdata) 
+data(taginfo)
+data(statinfo)
 
 
+## Setup data for use with the Animal Tracking Toolbox
+ATTdata <- setupData(tagdata, taginfo, statinfo)
+
+
+
+
+
+
+```
 

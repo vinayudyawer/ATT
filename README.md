@@ -22,9 +22,7 @@ commonly used metrics and provide an analytical tool to facilitate.
 <br>
 <br>
 
-<center>
-<img src="images/Fig1b.png" width="600" />
-</center>
+<center><img src="images/Fig1b.png" width="800" /></center>
 
 <br>
 <br>

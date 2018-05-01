@@ -3,6 +3,7 @@
 #' @description Produces an abacus plot to visualise patterns of detection over time or across signal receivers
 #'
 #' @param ATTdata input 'ATT' object containing tag detection, metadata and station information.
+#' @param id input Tag.ID for a single or several tags within the 'ATT' object to plot
 #' @param theme ggplot theme used in plot (default = "theme_linedraw")
 #' @param xlab x axis label
 #' @param ylab y axis label
@@ -32,13 +33,19 @@
 #' abacusPlot(ATTdata)
 #'
 #'
-abacusPlot<-function(ATTdata, theme="theme_linedraw", xlab="Date", ylab="Tag ID", det.col=2, tag.col=8, facet=FALSE, new.window=TRUE, ...){
+abacusPlot<-function(ATTdata, id=NULL, theme="theme_linedraw", xlab="Date", ylab="Tag ID", det.col=2, tag.col=8, facet=FALSE, new.window=TRUE, ...){
   if(!inherits(ATTdata, "ATT"))
     stop("Oops! Input data needs to be an 'ATT' object.
          \nSet up your data first using setupData() before running this operation")
 
   ## Combine Tag.Detection and Tag.Metadata into a combined tibble for plotting
   combdata<- left_join(ATTdata$Tag.Detections, ATTdata$Tag.Metadata, by="Tag.ID")
+
+  ## Subset Tag.ID if 'id' is supplied
+  if(!is.null(id)){
+    combdata<- combdata %>%
+      filter(Tag.ID %in% id)
+  }
 
   ## Find start and end date of taglife
   ss<-combdata %>%

@@ -4,12 +4,14 @@
 \alias{abacusPlot}
 \title{Plot daily detections over time (or across recievers)}
 \usage{
-abacusPlot(ATTdata, theme = "theme_linedraw", xlab = "Date",
+abacusPlot(ATTdata, id = NULL, theme = "theme_linedraw", xlab = "Date",
   ylab = "Tag ID", det.col = 2, tag.col = 8, facet = FALSE,
   new.window = TRUE, ...)
 }
 \arguments{
 \item{ATTdata}{input 'ATT' object containing tag detection, metadata and station information.}
+
+\item{id}{input Tag.ID for a single or several tags within the 'ATT' object to plot}
 
 \item{theme}{ggplot theme used in plot (default = "theme_linedraw")}
 

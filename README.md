@@ -23,7 +23,7 @@ commonly used metrics and provide an analytical tool to facilitate.
 <br>
 
 <center>
-<img src="images/Fig1b.png" style="width:50.0%" />
+![](images/Fig1b.png =250x)
 </center>
 
 <br>

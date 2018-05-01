@@ -25,6 +25,7 @@ commonly used metrics and provide an analytical tool to facilitate.
 <sub>Figure 1. Visual summary of workflow to calculate standardised metrics using the Animal Tracking Toolbox.</sub>
 
 <br>
+<br>
 
 The Animal Tracking Toolbox (ATT) is a collection of functions created
 in the R statistical environment (R Development Core Team 2018) that
@@ -38,10 +39,12 @@ visualise standardised metrics of movement and activity space within and
 between species tracked at multiple locations.
 
 <br>
+<br>
 
 <img src="images/Fig2.png"/>
 <sub>Figure 2. Overall activity space metric plots for multiple species tagged at multiple locations (a) Yellowfin Bream (n=1), (b) Yellowtail Kingfish (n=1), (c) Grey Reef Shark (n=1) and (d) Bull Shark (n=1) output using the ATT. Coloured points represent Centres of Activity (60 min time steps) with darker shapes representing core activity space (50% contour of Brownian bridge kernel utilisation distribution; BBKUD) and lighter shapes representing the extent of activity space (95% contour of BBKUD). Black polygons represent overall Minimum Convex Polygons from detection data. Open circles represent locations of VR2W receivers deployed within the IMOS ATF infrastructure and associated research installations.</sub>
 
+<br>
 <br>
 
 The ATT was developed to preprocess and calculate standardised metrics
@@ -54,6 +57,7 @@ however we are working on including functionality for data export formats
 from the VEMCO data management software VUE and other passive telemetry 
 networks. 
 
+<br>
 <br>
 
 This manual will outline the required data formats for input 

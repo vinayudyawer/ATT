@@ -130,6 +130,13 @@ abacusPlot(ATTdata)
 ```
 <img src="images/Fig3.png"/>
 
+```{r, include=TRUE, eval=TRUE}
+## Create a facetted abacus plot for a single individual
+
+
+
+
+```
 
 Calculating dispersal metrics
 ```{r, include=TRUE, eval=TRUE}

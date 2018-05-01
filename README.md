@@ -58,7 +58,6 @@ from the VEMCO data management software VUE and other passive telemetry
 networks. 
 
 <br>
-<br>
 
 This manual will outline the required data formats for input 
 ‘tagdata’ and associated tag metadata (referred to as ‘taginfo’ 
@@ -95,7 +94,6 @@ The Animal Tracking Toolbox is comprised of five main functions that work in ser
 In addition to these functions, there are additional functions to help plot detection summaries using an abacus plot (**`abacusPlot()`**). We are working on more functions to help visualise dispersal summaries and activity spaces calculated... Watch this space!!
 
 <br>
-<br>
 
 Usage
 ------------
@@ -131,8 +129,8 @@ abacusPlot(ATTdata)
 <img src="images/Fig3.png"/>
 
 ```{r, include=TRUE, eval=TRUE}
-## Create a facetted abacus plot for individual "77523307"
-abacusPlot(ATTdata, id="77523307", facet=TRUE)
+## Create a facetted abacus plot for individuals 77523274 and 77523147
+abacusPlot(ATTdata, id=c("77523274","77523147"), facet=TRUE)
 ```
 <img src="images/Fig4.png"/>
 
@@ -165,7 +163,6 @@ kud_est<-HRSummary(COAdata, projCRS=CRS("+init=epsg:3577"), type="BBKUD", cont=c
 ```
 ***More functions to visualise standardised metrics coming soon!!***
 
-<br>
 <br>
 <br>
 

@@ -23,7 +23,7 @@ commonly used metrics and provide an analytical tool to facilitate.
 <br>
 
 <center>
-![](images/Fig1b.png){ width: 200px; }
+<img src="images/Fig1b.png" width="600" />
 </center>
 
 <br>
@@ -44,7 +44,7 @@ between species tracked at multiple locations.
 <br>
 
 <center>
-<img src="images/Fig2.png" width="200" />
+<img src="images/Fig2.png" width="600" />
 </center>
 
 <br>

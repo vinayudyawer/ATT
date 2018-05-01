@@ -150,6 +150,7 @@ COAdata<-COA(ATTdata)
 ## Estimate 100% MCP areas
 mcp_est<-HRSummary(COAdata, projCRS=CRS("+init=epsg:3577"), type="MCP", cont=100)
 
+##*** Warning: the following might take a while to run! ***##
 ## Estimate 50% and 95% fKUD areas with cumulative metrics calculated
 kud_est<-HRSummary(COAdata, projCRS=CRS("+init=epsg:3577"), type="fKUD", cumulative=TRUE)
 

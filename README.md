@@ -22,7 +22,8 @@ commonly used metrics and provide an analytical tool to facilitate.
 <br>
 <br>
 
- <div style="text-align:center"><img src="images/Fig1b.png" width="700" />
+<img src="images/Fig1b.png" width="800" />
+Figure 1. Visual summary of workflow to calculate standardised metrics using the Animal Tracking Toolbox.
 
 <br>
 <br>
@@ -41,7 +42,8 @@ between species tracked at multiple locations.
 <br>
 <br>
 
-<img src="images/Fig2.png" width="600" /></div>
+<img src="images/Fig2.png" width="500" />
+Figure 2. Overall activity space metric plots for multiple species tagged at multiple locations (a) Yellowfin Bream (n=1), (b) Yellowtail Kingfish (n=1), (c) Grey Reef Shark (n=1) and (d) Bull Shark (n=1) output using the ATT. Coloured points represent Centres of Activity (60 min time steps) with darker shapes representing core activity space (50% contour of Brownian bridge kernel utilisation distribution; BBKUD) and lighter shapes representing the extent of activity space (95% contour of BBKUD). Black polygons represent overall Minimum Convex Polygons from detection data. Open circles represent locations of VR2W receivers deployed within the IMOS ATF infrastructure and associated research installations.
 
 <br>
 <br>
@@ -98,20 +100,71 @@ In addition to these functions, there are additional functions to help plot dete
 Usage
 ------------
 
+Setting up data
+
 ```{r, include=TRUE, eval=TRUE}
 ## Input example datasets
 data(tagdata) 
 data(taginfo)
 data(statinfo)
 
-
 ## Setup data for use with the Animal Tracking Toolbox
-ATTdata <- setupData(tagdata, taginfo, statinfo)
-
-
-
-
-
+ATTdata<- setupData(Tag.Detections = tagdata, Tag.Metadata = taginfo, Station.Information = statinfo)
 
 ```
 
+Calculating detection metrics
+```{r, include=TRUE, eval=TRUE}
+## Calculate detecion metrics with monthly subsets chosen
+detSum<-detectionSummary(ATTdata, sub = "%Y-%m")
+
+## Accessing metrics of detection for full tag life
+detSum$Overall
+
+## Accessing metrics of detection for each temporal subset
+detSum$Subsetted
+
+## Create an abacus plot
+abacusPlot(ATTdata)
+
+```
+<img src="images/Fig3.png" width="800" />
+
+
+Calculating dispersal metrics
+```{r, include=TRUE, eval=TRUE}
+## Calculate dispersal metrics
+dispSum<-dispersalSummary(ATTdata)
+
+## Accessing metrics of dispersal
+dispSum
+
+```
+
+Calculating activity space metrics
+```{r, include=TRUE, eval=TRUE}
+## First, estimate Short-term center of activities
+COAdata<-COA(ATTdata)
+
+## HRSummary() requires calculation of COAs first
+## Estimate 100% MCP areas
+mcp_est<-HRSummary(COAdata, projCRS=CRS("+init=epsg:3577"), type="MCP", cont=100)
+
+## Estimate 50% and 95% fKUD areas with cumulative metrics calculated
+kud_est<-HRSummary(COAdata, projCRS=CRS("+init=epsg:3577"), type="fKUD", cumulative=TRUE)
+
+## Estimate 20%, 50% and 95% BBKUD contour areas and store polygons
+kud_est<-HRSummary(COAdata, projCRS=CRS("+init=epsg:3577"), type="BBKUD", cont=c(20,50,95), storepoly=TRUE)
+
+## Plotting activity space function coming soon!!
+
+```
+
+<br>
+<br>
+<br>
+
+Current version
+---------------
+
+1.0.0 (1 May 2018)

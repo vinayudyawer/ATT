@@ -23,7 +23,7 @@ commonly used metrics and provide an analytical tool to facilitate.
 <br>
 
 <img src="images/Fig1b.png" width="800" />
-Figure 1. Visual summary of workflow to calculate standardised metrics using the Animal Tracking Toolbox.
+<sub>Figure 1. Visual summary of workflow to calculate standardised metrics using the Animal Tracking Toolbox.</sub>
 
 <br>
 <br>
@@ -43,7 +43,7 @@ between species tracked at multiple locations.
 <br>
 
 <img src="images/Fig2.png" width="500" />
-Figure 2. Overall activity space metric plots for multiple species tagged at multiple locations (a) Yellowfin Bream (n=1), (b) Yellowtail Kingfish (n=1), (c) Grey Reef Shark (n=1) and (d) Bull Shark (n=1) output using the ATT. Coloured points represent Centres of Activity (60 min time steps) with darker shapes representing core activity space (50% contour of Brownian bridge kernel utilisation distribution; BBKUD) and lighter shapes representing the extent of activity space (95% contour of BBKUD). Black polygons represent overall Minimum Convex Polygons from detection data. Open circles represent locations of VR2W receivers deployed within the IMOS ATF infrastructure and associated research installations.
+<sub>Figure 2. Overall activity space metric plots for multiple species tagged at multiple locations (a) Yellowfin Bream (n=1), (b) Yellowtail Kingfish (n=1), (c) Grey Reef Shark (n=1) and (d) Bull Shark (n=1) output using the ATT. Coloured points represent Centres of Activity (60 min time steps) with darker shapes representing core activity space (50% contour of Brownian bridge kernel utilisation distribution; BBKUD) and lighter shapes representing the extent of activity space (95% contour of BBKUD). Black polygons represent overall Minimum Convex Polygons from detection data. Open circles represent locations of VR2W receivers deployed within the IMOS ATF infrastructure and associated research installations.</sub>
 
 <br>
 <br>
@@ -128,7 +128,7 @@ detSum$Subsetted
 abacusPlot(ATTdata)
 
 ```
-<img src="images/Fig3.png" width="800" />
+<img src="images/Fig3.png" width="700" />
 
 
 Calculating dispersal metrics
@@ -156,9 +156,8 @@ kud_est<-HRSummary(COAdata, projCRS=CRS("+init=epsg:3577"), type="fKUD", cumulat
 ## Estimate 20%, 50% and 95% BBKUD contour areas and store polygons
 kud_est<-HRSummary(COAdata, projCRS=CRS("+init=epsg:3577"), type="BBKUD", cont=c(20,50,95), storepoly=TRUE)
 
-## Plotting activity space function coming soon!!
-
 ```
+**Plotting activity space function coming soon!!**
 
 <br>
 <br>

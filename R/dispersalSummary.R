@@ -36,8 +36,6 @@
 #'
 dispersalSummary<-function(ATTdata){
 
-  suppressPackageStartupMessages({sapply(c("dplyr", "lubridate", "sp", "raster", "maptools"), require, character.only=TRUE)})
-
   if(!inherits(ATTdata, "ATT"))
     stop("Oops! Input data needs to be an 'ATT' object.
          \nSet up your data first using setupData() before running this operation")

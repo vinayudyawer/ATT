@@ -35,7 +35,6 @@
 #' dSum$Subsetted
 #'
 dispersalSummary<-function(ATTdata){
-
   if(!inherits(ATTdata, "ATT"))
     stop("Oops! Input data needs to be an 'ATT' object.
          \nSet up your data first using setupData() before running this operation")
@@ -43,8 +42,8 @@ dispersalSummary<-function(ATTdata){
   ## Combine Tag.Detection and Tag.Metadata into a combined tibble for processing
   data<- left_join(ATTdata$Tag.Detections, ATTdata$Tag.Metadata, by="Tag.ID")
 
-  ## CRS for geographic coordinates
-  ll<-CRS("+init=epsg:4326") ## Geographic projection for lat/long data
+  ## CRS for geographic coordinates from ATTdata object
+  ll<-attr(ATTdata, "CRS")
 
   dispfun<-function(dat){
     if(nrow(dat)>3){
@@ -76,6 +75,7 @@ dispersalSummary<-function(ATTdata){
                                               gzAzimuth(from=matrix(c(disp$Longitude[x-1],disp$Latitude[x-1]),1,2),
                                                         to=matrix(c(disp$Longitude[x],disp$Latitude[x]),1,2))))
         disp$Consecutive.Bearing<- ifelse(!is.na(disp$Consecutive.Bearing) & disp$Consecutive.Bearing<0, disp$Consecutive.Bearing+360, disp$Consecutive.Bearing)
+        disp$Time.Since.Last.Detection<-c(NA, sapply(2:nrow(disp), function(x) difftime(disp$Date.Time[x], disp$Date.Time[x-1], "secs")))
       }
       else{
         pts<-data.frame(lat=dat$Latitude, lon=dat$Longitude); coordinates(pts)<-~lon+lat; projection(pts)<-ll
@@ -96,6 +96,7 @@ dispersalSummary<-function(ATTdata){
                                                   gzAzimuth(from=matrix(c(disp$Longitude[x-1],disp$Latitude[x-1]),1,2),
                                                             to=matrix(c(disp$Longitude[x],disp$Latitude[x]),1,2))))
         disp$Consecutive.Bearing<- ifelse(!is.na(disp$Consecutive.Bearing) & disp$Consecutive.Bearing<0, disp$Consecutive.Bearing+360, disp$Consecutive.Bearing)
+        disp$Time.Since.Last.Detection<-c(NA, sapply(2:nrow(disp), function(x) difftime(disp$Date.Time[x], disp$Date.Time[x-1], "secs")))
       }
     }
     else{
@@ -104,7 +105,8 @@ dispersalSummary<-function(ATTdata){
         mutate(Release.Dispersal = NA,
                Release.Bearing = NA,
                Consecutive.Dispersal = NA,
-               Consecutive.Bearing = NA)
+               Consecutive.Bearing = NA,
+               Time.Since.Last.Detection = NA)
     }
     return(disp)
   }

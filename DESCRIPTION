@@ -9,6 +9,4 @@ Description: The Animal Tracking Toolbox is a collection of functions that facil
 Depends: R (>= 3.5.0)
 Imports: dplyr, ggplot2, lubridate, sp, raster, maptools, adehabitatHR  
 License: GPL (>= 2)
-Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.0.1
-Suggests: testthat

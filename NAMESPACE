@@ -14,5 +14,6 @@ import(sp)
 import(dplyr)
 importFrom(raster,projection)
 importFrom(lubridate,ymd_hms)
+importFrom(lubridate,days_in_month)
 importFrom(lubridate,date)
 

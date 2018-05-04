@@ -22,7 +22,6 @@
 #' @import sp
 #' @importFrom raster projection
 #' @importFrom raster spTransform
-#' @importFrom raster projection
 #' @import maptools
 #' @examples
 #' ## Import example datasets

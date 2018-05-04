@@ -15,7 +15,7 @@
 #' @seealso setup data can be used to estimate detection \code{\link{detectionSummary}}, dispersal \code{\link{dispersalSummary}}
 #'   and Short-term center of activity \code{\link{COA}}.
 #' @export
-#' @import magrittr
+#' @importFrom magrittr %>%
 #' @importFrom dplyr left_join
 #' @importFrom dplyr mutate
 #' @importFrom dplyr group_by

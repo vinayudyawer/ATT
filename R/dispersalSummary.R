@@ -11,6 +11,7 @@
 #'
 #' @seealso Input data needs to be setup using \code{\link{setupData}}
 #' @export
+#' @importFrom magrittr %>%
 #' @importFrom dplyr left_join
 #' @importFrom dplyr mutate
 #' @importFrom dplyr group_by

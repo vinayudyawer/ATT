@@ -6,7 +6,7 @@ Date: 2018-04-30
 Author: Vinay Udyawer & Ross G. Dwyer
 Maintainer: Vinay Udyawer <v.udyawer@aims.gov.au>
 Description: The Animal Tracking Toolbox is a collection of functions that facilitate the analysis of large passive telemetry datasets stored in cooperative telemetry networks. Enables the estimation of standardised metrics of detection, dispersal and activity space.
-Depends: R (>= 3.5.0)
+Depends: R (>= 3.5.0), dplyr, ggplot2, lubridate, sp, raster, maptools, adehabitatHR
 Imports: dplyr, ggplot2, lubridate, sp, raster, maptools, adehabitatHR  
 License: GPL (>= 2)
 RoxygenNote: 6.0.1

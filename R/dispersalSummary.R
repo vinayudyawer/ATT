@@ -28,12 +28,6 @@
 #' ## Estimate detecion metrics with monthly subsets chosen
 #' dispSum<-dispersalSummary(ATTdata)
 #'
-#' ## Metrics of detection for full tag life
-#' dSum$Overall
-#'
-#' ## Metrics of detection for each temporal subset
-#' dSum$Subsetted
-#'
 dispersalSummary<-function(ATTdata){
   if(!inherits(ATTdata, "ATT"))
     stop("Oops! Input data needs to be an 'ATT' object.

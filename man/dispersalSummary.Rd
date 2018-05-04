@@ -30,12 +30,6 @@ ATTdata<- setupData(Tag.Detections = tagdata, Tag.Metadata = taginfo, Station.In
 ## Estimate detecion metrics with monthly subsets chosen
 dispSum<-dispersalSummary(ATTdata)
 
-## Metrics of detection for full tag life
-dSum$Overall
-
-## Metrics of detection for each temporal subset
-dSum$Subsetted
-
 }
 \seealso{
 Input data needs to be setup using \code{\link{setupData}}

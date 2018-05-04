@@ -19,7 +19,7 @@ HRSummary(COAdata, projCRS, type = "MCP", cont = c(50, 95),
 \item{cont}{contours of activity space models to estimate areas. Defaults to 50% and 95% contours}
 
 \item{sub}{temporal subset used to calculate subsetted activity space metrics.
-Currently supports monthly ("%Y-%m") or weekly ("%Y-%W"). Defaults to monthly.}
+Currently supports monthly ("\%Y-\%m") or weekly ("\%Y-\%W"). Defaults to monthly.}
 
 \item{cumulative}{TRUE/FALSE, should the operation calculate cumulative activity space areas. Caution
 this may take a long time depending on size of dataset.}
@@ -38,7 +38,7 @@ Defaults to 200 m if none provided.}
 \value{
 Produces a list of 2 tibbles containing Overall (full tag life) and Subsetted (user-defined temporal subsets) metrics of activity space.
 If storepoly=TRUE additional object within list containing spatial objects (MCP polygons or KUD rasters).
-Temporal subsets are currently restricted to monthly ("%Y-%m") or weekly ("%Y-%W"). Cumulative measures across temporal subsets
+Temporal subsets are currently restricted to monthly ("\%Y-\%m") or weekly ("\%Y-\%W"). Cumulative measures across temporal subsets
 included if cumulative=TRUE.
 }
 \description{

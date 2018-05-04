@@ -28,13 +28,16 @@
 #' @export
 #' @import adehabitatHR
 #' @import sp
-#' @import raster
-#' @importFrom raster intersect
-#' @importFrom raster select
-#' @importFrom raster origin
-#' @importFrom raster union
-#' @import dplyr
-#' @import lubridate
+#' @importFrom raster projection
+#' @importFrom raster spTransform
+#' @importFrom raster projection
+#' @importFrom dplyr left_join
+#' @importFrom dplyr mutate
+#' @importFrom dplyr group_by
+#' @importFrom dplyr summarize
+#' @importFrom dplyr select
+#' @importFrom dplyr subset
+#' @importFrom lubridate ymd_hms
 HRprocess<-function(cenac, utm, ll, type="MCP", h=200, ext=2, grid=200, sub="%Y-%m", cont=c(50,95), cumulative=FALSE, storepoly=FALSE, div=4){
 
   ## add subset column

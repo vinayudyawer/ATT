@@ -11,10 +11,17 @@
 #'
 #' @seealso Input data needs to be setup using \code{\link{setupData}}
 #' @export
-#' @import dplyr
-#' @import lubridate
+#' @importFrom dplyr left_join
+#' @importFrom dplyr mutate
+#' @importFrom dplyr group_by
+#' @importFrom dplyr summarize
+#' @importFrom dplyr select
+#' @importFrom lubridate date
+#' @importFrom lubridate ymd-hms
 #' @import sp
-#' @import raster
+#' @importFrom raster projection
+#' @importFrom raster spTransform
+#' @importFrom raster projection
 #' @import maptools
 #' @examples
 #' ## Import example datasets

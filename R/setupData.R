@@ -15,9 +15,15 @@
 #' @seealso setup data can be used to estimate detection \code{\link{detectionSummary}}, dispersal \code{\link{dispersalSummary}}
 #'   and Short-term center of activity \code{\link{COA}}.
 #' @export
-#' @import dplyr
-#' @import lubridate
-#' @import raster
+#' @importFrom dplyr left_join
+#' @importFrom dplyr mutate
+#' @importFrom dplyr group_by
+#' @importFrom dplyr summarize
+#' @importFrom dplyr select
+#' @importFrom dplyr subset
+#' @importFrom lubridate ymd_hms
+#' @importFrom lubridate date
+#' @importFrom sp CRS
 #' @examples
 #' ## Import example datasets
 #' data(tagdata)

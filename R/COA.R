@@ -17,9 +17,8 @@
 #' @export
 #' @importFrom dplyr left_join
 #' @importFrom dplyr mutate
-#' @importFrom dplyr setdiff
-#' @importFrom dplyr union
-#' @import lubridate
+#' @importFrom dplyr summarize
+#' @importFrom lubridate ymd_hms
 #' @examples
 #' ## Import example datasets
 #' data(tagdata)

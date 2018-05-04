@@ -28,7 +28,12 @@
 #'
 #' @seealso Input data needs to be setup using \code{\link{setupData}}, and COAs calculated using \code{\link{COA}}.
 #' @export
-#' @import dplyr
+#' @importFrom dplyr left_join
+#' @importFrom dplyr mutate
+#' @importFrom dplyr group_by
+#' @importFrom dplyr summarize
+#' @importFrom dplyr select
+#' @importFrom dplyr subset
 #' @examples
 #' ## Import example datasets
 #' data(tagdata)

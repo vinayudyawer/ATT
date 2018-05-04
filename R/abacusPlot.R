@@ -18,7 +18,10 @@
 #'   receiver stations plotted.
 #' @seealso Input data needs to be setup using \code{\link{setupData}}
 #' @export
-#' @import dplyr
+#' @importFrom dplyr left_join
+#' @importFrom dplyr filter
+#' @importFrom dplyr group_by
+#' @importFrom dplyr summarize
 #' @import ggplot2
 #' @examples
 #' ## Import example datasets

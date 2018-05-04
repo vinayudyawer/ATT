@@ -15,7 +15,10 @@
 #'
 #' @seealso Input data needs to be setup using \code{\link{setupData}}. 'COA' object required for \code{\link{HRSummary}}
 #' @export
-#' @import dplyr
+#' @importFrom dplyr left_join
+#' @importFrom dplyr mutate
+#' @importFrom dplyr setdiff
+#' @importFrom dplyr union
 #' @import lubridate
 #' @examples
 #' ## Import example datasets

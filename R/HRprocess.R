@@ -29,6 +29,10 @@
 #' @import adehabitatHR
 #' @import sp
 #' @import raster
+#' @importFrom raster intersect
+#' @importFrom raster select
+#' @importFrom raster origin
+#' @importFrom raster union
 #' @import dplyr
 #' @import lubridate
 HRprocess<-function(cenac, utm, ll, type="MCP", h=200, ext=2, grid=200, sub="%Y-%m", cont=c(50,95), cumulative=FALSE, storepoly=FALSE, div=4){

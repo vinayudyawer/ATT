@@ -39,9 +39,9 @@ this may take a long time depending on size of dataset.}
 }
 \value{
 Produces a list of 2 tibbles containing Overall (full tag life) and Subsetted (user-defined temporal subsets) metrics of activity space.
-If storepoly=TRUE additional object within list containing spatial objects (MCP polygons or KUD rasters).
-Temporal subsets are currently restricted to monthly ('\%Y-\%m') or weekly ('\%Y-\%W'). Cumulative measures across temporal subsets
-included if cumulative=TRUE.
+  If storepoly=TRUE additional object within list containing spatial objects (MCP polygons or KUD rasters).
+  Temporal subsets are currently restricted to monthly ('\%Y-\%m') or weekly ('\%Y-\%W'). Cumulative measures across temporal subsets
+  included if cumulative=TRUE.
 }
 \description{
 Internal function to run \code{\link{HRSummary}}.

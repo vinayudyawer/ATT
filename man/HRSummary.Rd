@@ -16,7 +16,7 @@ HRSummary(COAdata, projCRS, type = "MCP", cont = c(50, 95),
 \item{type}{type of activity space metric to calculate. Currently "MCP" for minimum convex polygons,
 "fKUD" for fixed KUD and "BBKUD" for Brownian bridge KUD. Defaults to "MCP" when no value provided.}
 
-\item{cont}{contours of activity space models to estimate areas. Defaults to 50% and 95% contours}
+\item{cont}{contours of activity space models to estimate areas. Defaults to 50\% and 95\% contours}
 
 \item{sub}{temporal subset used to calculate subsetted activity space metrics.
 Currently supports monthly ("\%Y-\%m") or weekly ("\%Y-\%W"). Defaults to monthly.}
@@ -37,15 +37,15 @@ Defaults to 200 m if none provided.}
 }
 \value{
 Produces a list of 2 tibbles containing Overall (full tag life) and Subsetted (user-defined temporal subsets) metrics of activity space.
-If storepoly=TRUE additional object within list containing spatial objects (MCP polygons or KUD rasters).
-Temporal subsets are currently restricted to monthly ("\%Y-\%m") or weekly ("\%Y-\%W"). Cumulative measures across temporal subsets
-included if cumulative=TRUE.
+  If storepoly=TRUE additional object within list containing spatial objects (MCP polygons or KUD rasters).
+  Temporal subsets are currently restricted to monthly ("\%Y-\%m") or weekly ("\%Y-\%W"). Cumulative measures across temporal subsets
+  included if cumulative=TRUE.
 }
 \description{
 Produce standard metrics of activity space. Metrics can include Minimum convex polygon area (MCP),
-fixed Kernel Utilisation Distribution (fKUD) area and Brownian Bridge KUDs (BBKUD). Activity space metrics are
-calculated for full period of tag life and user defined subset (currently monthly or weekly only). Cumulative
-activity spaces can also be estimated at set temporal subsets.
+ fixed Kernel Utilisation Distribution (fKUD) area and Brownian Bridge KUDs (BBKUD). Activity space metrics are
+ calculated for full period of tag life and user defined subset (currently monthly or weekly only). Cumulative
+ activity spaces can also be estimated at set temporal subsets.
 }
 \examples{
 ## Import example datasets
@@ -59,14 +59,17 @@ ATTdata<- setupData(Tag.Detections = tagdata, Tag.Metadata = taginfo, Station.In
 ## Estimate Short-term center of activities
 COAdata<-COA(ATTdata)
 
+## Define coordinate system for projection of detection data (in m)
+proj<-CRS("+init=epsg:3577")
+
 ## Estimate 100\% MCP areas
-mcp_est<-HRSummary(COAdata, projCRS=CRS("+init=epsg:3577"), type="MCP", cont=100)
+mcp_est<-HRSummary(COAdata, projCRS=proj, type="MCP", cont=100)
 
 ## Estimate 50\% and 95\% fKUD areas with cumulative metrics calculated
-kud_est<-HRSummary(COAdata, projCRS=CRS("+init=epsg:3577"), type="fKUD", cumulative=TRUE)
+kud_est<-HRSummary(COAdata, projCRS=proj, type="fKUD", cumulative=TRUE)
 
 ## Estimate 20\%, 50\% and 95\% BBKUD contour areas and store polygons
-kud_est<-HRSummary(COAdata, projCRS=CRS("+init=epsg:3577"), type="BBKUD", cont=c(20,50,95), storepoly=TRUE)
+kud_est<-HRSummary(COAdata, projCRS=proj, type="BBKUD", cont=c(20,50,95), storepoly=TRUE)
 
 
 }

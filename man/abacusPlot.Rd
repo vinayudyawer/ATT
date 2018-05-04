@@ -4,8 +4,8 @@
 \alias{abacusPlot}
 \title{Plot daily detections over time (or across recievers)}
 \usage{
-abacusPlot(ATTdata, id = NULL, theme = "theme_linedraw", xlab = "Date",
-  ylab = "Tag ID", det.col = 2, tag.col = 8, facet = FALSE,
+abacusPlot(ATTdata, id = NULL, theme = "theme_linedraw", xlab = NULL,
+  ylab = NULL, det.col = 2, tag.col = 8, facet = FALSE,
   new.window = TRUE, ...)
 }
 \arguments{
@@ -31,8 +31,8 @@ abacusPlot(ATTdata, id = NULL, theme = "theme_linedraw", xlab = "Date",
 }
 \value{
 Produces an abacus plot in a new window. Daily detections over time for each tag
-(determined by "Tag.ID" field name). If facet parameter is TRUE detections of each tag on
-receiver stations plotted.
+  (determined by "Tag.ID" field name). If facet parameter is TRUE detections of each tag on
+  receiver stations plotted.
 }
 \description{
 Produces an abacus plot to visualise patterns of detection over time or across signal receivers

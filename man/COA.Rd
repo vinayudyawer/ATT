@@ -20,9 +20,9 @@ Exports a 'COA' object that is a tibble (if split = FALSE) or a list of tibbles 
 }
 \description{
 Function to calculate Short-term centers of activity positions from passive telemetry data.
-Based on technique described in: Simpfendorfer, C. A., M. R. Heupel, and R. E. Hueter. 2002.
-Estimation of short-term centers of activity from an array of omnidirectional hydrophones and its
-use in studying animal movements. Canadian Journal of Fisheries and Aquatic Sciences 59:23-32.
+ Based on technique described in: Simpfendorfer, C. A., M. R. Heupel, and R. E. Hueter. 2002.
+ Estimation of short-term centers of activity from an array of omnidirectional hydrophones and its
+ use in studying animal movements. Canadian Journal of Fisheries and Aquatic Sciences 59:23-32.
 }
 \examples{
 ## Import example datasets

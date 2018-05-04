@@ -12,11 +12,11 @@ tag detection data, metadata and station information}
 }
 \value{
 Produces a tibble containing dispersal distance and bearings between tag release location and
-each detection as well as between consecutive detections.
+  each detection as well as between consecutive detections.
 }
 \description{
 Produce standard metrics of dispersal. Metrics include dispersal distance and bearings between
-tag release location and each detection as well as between consecutive detections.
+ tag release location and each detection as well as between consecutive detections.
 }
 \examples{
 ## Import example datasets

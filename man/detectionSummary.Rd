@@ -15,11 +15,11 @@ Defaults to monthly if none is provided.}
 }
 \value{
 Produces a list of tibbles containing Overall (full tag life) and Subsetted (user-defined temporal subsets) metrics of detection.
-Temporal subsets are currently restricted to monthly ("\%Y-\%m") or weekly ('\%Y-\%W').
+  Temporal subsets are currently restricted to monthly ('\%Y-\%m') or weekly ('\%Y-\%W').
 }
 \description{
 Produce standard metrics of detection. Metrics include Number of detections, Number of receiver stations
-detected on, Number of days detected, Number of Days at Liberty and Detection Index.
+ detected on, Number of days detected, Number of Days at Liberty and Detection Index.
 }
 \examples{
 ## Import example datasets

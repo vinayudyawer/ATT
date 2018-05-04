@@ -20,11 +20,11 @@ setupData(Tag.Detections, Tag.Metadata, Station.Information, tz = "UTC",
 }
 \value{
 Produces an 'ATT' object that is a list of tibbles containing Tag.Detections, Tag.Metadata and Station.Information.
-The 'ATT' object will have a geographic coordinate system associated with it for smoother functioning of subsequent functions.
+  The 'ATT' object will have a geographic coordinate system associated with it for smoother functioning of subsequent functions.
 }
 \description{
 Sets up and stores all relevant information required for spatio-temporal analyses of passive telemetry data.
-This function produces an 'ATT' object which standardises field names (currently handles IMOS ATF export data structure).
+ This function produces an 'ATT' object which standardises field names (currently handles IMOS ATF export data structure).
 }
 \examples{
 ## Import example datasets
@@ -40,5 +40,5 @@ ATTdata
 }
 \seealso{
 setup data can be used to estimate detection \code{\link{detectionSummary}}, dispersal \code{\link{dispersalSummary}}
-and Short-term center of activity \code{\link{COA}}.
+  and Short-term center of activity \code{\link{COA}}.
 }

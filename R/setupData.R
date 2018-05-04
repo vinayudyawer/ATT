@@ -20,7 +20,6 @@
 #' @importFrom dplyr group_by
 #' @importFrom dplyr summarize
 #' @importFrom dplyr select
-#' @importFrom dplyr subset
 #' @importFrom lubridate ymd_hms
 #' @importFrom lubridate date
 #' @importFrom sp CRS

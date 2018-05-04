@@ -33,7 +33,6 @@
 #' @importFrom dplyr group_by
 #' @importFrom dplyr summarize
 #' @importFrom dplyr select
-#' @importFrom dplyr subset
 #' @examples
 #' ## Import example datasets
 #' data(tagdata)

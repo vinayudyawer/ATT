@@ -36,7 +36,6 @@
 #' @importFrom dplyr group_by
 #' @importFrom dplyr summarize
 #' @importFrom dplyr select
-#' @importFrom dplyr subset
 #' @importFrom lubridate ymd_hms
 HRprocess<-function(cenac, utm, ll, type="MCP", h=200, ext=2, grid=200, sub="%Y-%m", cont=c(50,95), cumulative=FALSE, storepoly=FALSE, div=4){
 

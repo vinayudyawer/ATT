@@ -7,9 +7,9 @@
 #' @param ll a geographic coordinate reference system in meters used to accurately estimate area (see \code{\link{CRS}})
 #' @param type type of activity space metric to calculate. Currently "MCP" for minimum convex polygons,
 #'   "fKUD" for fixed KUD and "BBKUD" for Brownian bridge KUD. Defaults to "MCP" when no value provided.
-#' @param cont contours of activity space models to estimate areas. Defaults to 50% and 95% contours
+#' @param cont contours of activity space models to estimate areas. Defaults to 50\% and 95\% contours
 #' @param sub temporal subset used to calculate subsetted activity space metrics.
-#'   Currently supports monthly ('%Y-%m') or weekly ('%Y-%W'). Defaults to monthly.
+#'   Currently supports monthly ('\%Y-\%m') or weekly ('\%Y-\%W'). Defaults to monthly.
 #' @param cumulative TRUE/FALSE, should the operation calculate cumulative activity space areas. Caution
 #'   this may take a long time depending on size of dataset.
 #' @param storepoly TRUE/FALSE, should activity space metrics be saved as spatial objects (polygons or rasters)
@@ -21,7 +21,7 @@
 #'
 #' @return Produces a list of 2 tibbles containing Overall (full tag life) and Subsetted (user-defined temporal subsets) metrics of activity space.
 #'   If storepoly=TRUE additional object within list containing spatial objects (MCP polygons or KUD rasters).
-#'   Temporal subsets are currently restricted to monthly ('%Y-%m') or weekly ('%Y-%W'). Cumulative measures across temporal subsets
+#'   Temporal subsets are currently restricted to monthly ('\%Y-\%m') or weekly ('\%Y-\%W'). Cumulative measures across temporal subsets
 #'   included if cumulative=TRUE.
 #'
 #' @seealso Input data needs to be setup using \code{\link{setupData}}, and COAs calculated using \code{\link{COA}}.
@@ -32,8 +32,6 @@
 #' @import dplyr
 #' @import lubridate
 HRprocess<-function(cenac, utm, ll, type="MCP", h=200, ext=2, grid=200, sub="%Y-%m", cont=c(50,95), cumulative=FALSE, storepoly=FALSE, div=4){
-
-  suppressPackageStartupMessages({sapply(c("adehabitatHR", "sp", "raster", "dplyr", "lubridate"), require, character.only=TRUE)})
 
   ## add subset column
   cenac<-mutate(cenac, subset = factor(format(TimeStep.coa, sub)))

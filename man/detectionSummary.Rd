@@ -31,7 +31,7 @@ data(statinfo)
 ATTdata<- setupData(Tag.Detections = IMOSdata, Tag.Metadata = taginfo, Station.Information = statinfo, source="IMOS")
 
 ## Estimate detecion metrics with monthly subsets chosen
-dSum<-detectionSummary(ATTdata, sub = "%Y-%m")
+dSum<-detectionSummary(ATTdata, sub = "\%Y-\%m")
 
 ## Metrics of detection for full tag life
 dSum$Overall

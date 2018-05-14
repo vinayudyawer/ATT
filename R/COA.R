@@ -21,12 +21,12 @@
 #' @importFrom lubridate ymd_hms
 #' @examples
 #' ## Import example datasets
-#' data(tagdata)
+#' data(IMOSdata)
 #' data(taginfo)
 #' data(statinfo)
 #'
 #' ## Setup data
-#' ATTdata<- setupData(Tag.Detections = tagdata, Tag.Metadata = taginfo, Station.Information = statinfo)
+#' ATTdata<- setupData(Tag.Detections = tagdata, Tag.Metadata = taginfo, Station.Information = statinfo, source="IMOS")
 #'
 #' ## Estimate Short-term Center of Activities for all individuals
 #' COAdata<- COA(ATTdata)
@@ -38,7 +38,7 @@ COA<-function (ATTdata, timestep=60, split=FALSE){
          \nSet up your data first using setupData() before running this operation")
 
   ## Combine Tag.Detection and Tag.Metadata into a combined tibble for processing
-  data<- left_join(ATTdata$Tag.Detections, ATTdata$Tag.Metadata, by="Tag.ID") %>%
+  data<- left_join(ATTdata$Tag.Detections, ATTdata$Tag.Metadata, by="Transmitter") %>%
     mutate(Tag.ID = factor(Tag.ID))
 
   step_sec <- timestep * 60

@@ -49,12 +49,12 @@ Produce standard metrics of activity space. Metrics can include Minimum convex p
 }
 \examples{
 ## Import example datasets
-data(tagdata)
+data(IMOSdata)
 data(taginfo)
 data(statinfo)
 
 ## Setup data
-ATTdata<- setupData(Tag.Detections = tagdata, Tag.Metadata = taginfo, Station.Information = statinfo)
+ATTdata<- setupData(Tag.Detections = IMOSdata, Tag.Metadata = taginfo, Station.Information = statinfo, source = "IMOS")
 
 ## Estimate Short-term center of activities
 COAdata<-COA(ATTdata)

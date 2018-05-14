@@ -25,12 +25,12 @@
 #' @import ggplot2
 #' @examples
 #' ## Import example datasets
-#' data(tagdata)
+#' data(IMOSdata)
 #' data(taginfo)
 #' data(statinfo)
 #'
 #' ## Setup data
-#' ATTdata<- setupData(Tag.Detections = tagdata, Tag.Metadata = taginfo, Station.Information = statinfo)
+#' ATTdata<- setupData(Tag.Detections = IMOSdata, Tag.Metadata = taginfo, Station.Information = statinfo, source = "IMOS")
 #'
 #' ## Create abacus plot
 #' abacusPlot(ATTdata)
@@ -42,7 +42,7 @@ abacusPlot<-function(ATTdata, id=NULL, theme="theme_linedraw", xlab=NULL, ylab=N
          \nSet up your data first using setupData() before running this operation")
 
   ## Combine Tag.Detection and Tag.Metadata into a combined tibble for plotting
-  combdata<- left_join(ATTdata$Tag.Detections, ATTdata$Tag.Metadata, by="Tag.ID")
+  combdata<- left_join(ATTdata$Tag.Detections, ATTdata$Tag.Metadata, by="Transmitter")
 
   ## Subset Tag.ID if 'id' is supplied
   if(!is.null(id)){

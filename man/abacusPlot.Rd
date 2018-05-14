@@ -39,12 +39,12 @@ Produces an abacus plot to visualise patterns of detection over time or across s
 }
 \examples{
 ## Import example datasets
-data(tagdata)
+data(IMOSdata)
 data(taginfo)
 data(statinfo)
 
 ## Setup data
-ATTdata<- setupData(Tag.Detections = tagdata, Tag.Metadata = taginfo, Station.Information = statinfo)
+ATTdata<- setupData(Tag.Detections = IMOSdata, Tag.Metadata = taginfo, Station.Information = statinfo, source="IMOS")
 
 ## Create abacus plot
 abacusPlot(ATTdata)

@@ -14,6 +14,8 @@ setupData(Tag.Detections, Tag.Metadata, Station.Information, tz = "UTC",
 
 \item{Station.Information}{data frame with information on receiver station including coordinates. Currently only handles IMOS ATF station information structure.}
 
+\item{source}{source character indicating source of Tag.Detection data. "IMOS" for data downloaded from IMOS data repository and "VEMCO" for data exported from the VEMCO VUE database}
+
 \item{tz}{time zone of date time information in Tag.Detections, Tag.Metadata and Station.Information. If none provided defaults to "UTC"}
 
 \item{crs}{geographic coordinate system for all Tag.Detections, Tag.Metadata and Station.Information (latitude/longitude). If none provided defaults to WGS84.}
@@ -23,19 +25,23 @@ Produces an 'ATT' object that is a list of tibbles containing Tag.Detections, Ta
   The 'ATT' object will have a geographic coordinate system associated with it for smoother functioning of subsequent functions.
 }
 \description{
-Sets up and stores all relevant information required for spatio-temporal analyses of passive telemetry data.
- This function produces an 'ATT' object which standardises field names (currently handles IMOS ATF export data structure).
+Sets up and stores all relevant information required for spatio-temporal analyses of passive telemetry data from IMOS and VEMCO databases.
+This function produces an 'ATT' object which standardises field names (currently handles IMOS ATF export data structure).
 }
 \examples{
 ## Import example datasets
-data(tagdata)
+data(IMOSdata)
+data(VEMCOdata)
 data(taginfo)
 data(statinfo)
 
-## Setup data
-ATTdata<- setupData(Tag.Detections = tagdata, Tag.Metadata = taginfo, Station.Information = statinfo)
+## Setup data from IMOS ATF data repository
+ATTdata<- setupData(Tag.Detections = IMOSdata, Tag.Metadata = taginfo, Station.Information = statinfo, source = "IMOS")
 ATTdata
 
+## Setup data from VEMCO VUE database
+ATTdata<- setupData(Tag.Detections = VEMCOdata, Tag.Metadata = taginfo, Station.Information = statinfo, source = "VEMCO")
+ATTdata
 
 }
 \seealso{

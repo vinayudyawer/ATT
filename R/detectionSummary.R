@@ -19,12 +19,12 @@
 #' @importFrom dplyr summarize
 #' @examples
 #' ## Import example datasets
-#' data(tagdata)
+#' data(IMOSdata)
 #' data(taginfo)
 #' data(statinfo)
 #'
 #' ## Setup data
-#' ATTdata<- setupData(Tag.Detections = tagdata, Tag.Metadata = taginfo, Station.Information = statinfo)
+#' ATTdata<- setupData(Tag.Detections = IMOSdata, Tag.Metadata = taginfo, Station.Information = statinfo, source="IMOS")
 #'
 #' ## Estimate detecion metrics with monthly subsets chosen
 #' dSum<-detectionSummary(ATTdata, sub = "%Y-%m")
@@ -44,7 +44,7 @@ detectionSummary<-function(ATTdata, sub='%Y-%m'){
     stop("Sorry! I can't recognise the temporal subset chosen.\nChoose one of the following subsets:\n\tMonthly   = '%Y-%m'\n\tWeekly  = '%Y-%W'")
 
   ## Combine Tag.Detection and Tag.Metadata into a combined tibble for processing
-  combdata<- left_join(ATTdata$Tag.Detections, ATTdata$Tag.Metadata, by="Tag.ID") %>%
+  combdata<- left_join(ATTdata$Tag.Detections, ATTdata$Tag.Metadata, by="Transmitter") %>%
     mutate(subset = as.factor(format(Date.Time, sub)))
 
   ## Detection metric calculations for full tag life

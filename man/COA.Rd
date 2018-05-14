@@ -26,12 +26,12 @@ Function to calculate Short-term centers of activity positions from passive tele
 }
 \examples{
 ## Import example datasets
-data(tagdata)
+data(IMOSdata)
 data(taginfo)
 data(statinfo)
 
 ## Setup data
-ATTdata<- setupData(Tag.Detections = tagdata, Tag.Metadata = taginfo, Station.Information = statinfo)
+ATTdata<- setupData(Tag.Detections = IMOSdata, Tag.Metadata = taginfo, Station.Information = statinfo, source="IMOS")
 
 ## Estimate Short-term Center of Activities for all individuals
 COAdata<- COA(ATTdata)

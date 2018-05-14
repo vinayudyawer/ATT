@@ -23,15 +23,15 @@ Produce standard metrics of detection. Metrics include Number of detections, Num
 }
 \examples{
 ## Import example datasets
-data(tagdata)
+data(IMOSdata)
 data(taginfo)
 data(statinfo)
 
 ## Setup data
-ATTdata<- setupData(Tag.Detections = tagdata, Tag.Metadata = taginfo, Station.Information = statinfo)
+ATTdata<- setupData(Tag.Detections = IMOSdata, Tag.Metadata = taginfo, Station.Information = statinfo, source="IMOS")
 
 ## Estimate detecion metrics with monthly subsets chosen
-dSum<-detectionSummary(ATTdata, sub = "\%Y-\%m")
+dSum<-detectionSummary(ATTdata, sub = "%Y-%m")
 
 ## Metrics of detection for full tag life
 dSum$Overall

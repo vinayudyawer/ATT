@@ -1,13 +1,11 @@
 #' Setup data prior to use with Animal Tracking Toolbox functions
 #'
-#'@description Sets up and stores all relevant information required for spatio-temporal analyses of passive telemetry data from IMOS and VEMCO databases.
+#'@description Sets up and stores all relevant information required for spatio-temporal analyses of passive telemetry data.
 #'  This function produces an 'ATT' object which standardises field names (currently handles IMOS ATF export data structure).
 #'
 #' @param Tag.Detections data frame with tag detection data including coordinates. Currently only handles IMOS ATF data structure.
 #' @param Tag.Metadata data frame with metadata for all tags represented in Tag.Detections. Currently only handles IMOS ATF metadata structure.
 #' @param Station.Information data frame with information on receiver station including coordinates. Currently only handles IMOS ATF station information structure.
-#' @param source character indicating source of Tag.Detection data. "IMOS" for data downloaded from IMOS data repository
-#'  and "VEMCO" for data exported from the VEMCO VUE database
 #' @param tz time zone of date time information in Tag.Detections, Tag.Metadata and Station.Information. If none provided defaults to "UTC"
 #' @param crs geographic coordinate system for all Tag.Detections, Tag.Metadata and Station.Information (latitude/longitude). If none provided defaults to WGS84.
 #'
@@ -37,40 +35,24 @@
 #' ATTdata
 #'
 #'
-setupData<-function(Tag.Detections, Tag.Metadata, Station.Information, source=NULL, tz="UTC", crs=NULL){
-
-  if(is.null(source))
-    stop("Can't recognize the source of your tag detection data.
-         \nsource should be either 'IMOS' or 'VEMCO'")
-
-  if(source %in% "IMOS"){
-    Tag.Detections = as_tibble(Tag.Detections) %>%
-      transmute(Date.Time = lubridate::ymd_hms(detection_timestamp, tz=tz),
-                Tag.ID = tag_id,
-                Transmitter.Name = transmitter_id,
-                Station.Name = station_name,
-                Receiver = receiver_name,
-                Latitude = latitude,
-                Longitude = longitude,
-                Sensor.Value = sensor_value,
-                Sensor.Unit = sensor_unit)}
-  if(source %in% "VEMCO"){
-    Tag.Detections = as_tibble(Tag.Detections) %>%
-      transmute(Date.Time = lubridate::ymd_hms(Date.and.Time..UTC., tz=tz),
-                Transmitter = Transmitter,
-                Station.Name = Station.Name,
-                Receiver = Receiver,
-                Latitude = Latitude,
-                Longitude = Longitude,
-                Sensor.Value = Sensor.Value,
-                Sensor.Unit = Sensor.Unit)}
+setupData_IMOS<-function(Tag.Detections, Tag.Metadata, Station.Information, tz="UTC", crs=NULL){
 
   object<-
     structure(
       list(
-        Tag.Detections = Tag.Detections,
+        Tag.Detections = as_tibble(Tag.Detections) %>%
+          transmute(Date.Time = lubridate::ymd_hms(detection_timestamp, tz=tz),
+                    Transmitter = transmitter_id,
+                    Station.Name = station_name,
+                    Receiver = receiver_name,
+                    Latitude = latitude,
+                    Longitude = longitude,
+                    Sensor.Value = sensor_value,
+                    Sensor.Unit = sensor_unit),
+
         Tag.Metadata = as_tibble(Tag.Metadata) %>%
           transmute(Tag.ID = tag_id,
+                    Transmitter = transmitter_id,
                     Sci.Name = scientific_name,
                     Common.Name = common_name,
                     Tag.Project = tag_project_name,

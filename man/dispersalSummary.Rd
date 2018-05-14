@@ -20,12 +20,12 @@ Produce standard metrics of dispersal. Metrics include dispersal distance and be
 }
 \examples{
 ## Import example datasets
-data(tagdata)
+data(IMOSdata)
 data(taginfo)
 data(statinfo)
 
 ## Setup data
-ATTdata<- setupData(Tag.Detections = tagdata, Tag.Metadata = taginfo, Station.Information = statinfo)
+ATTdata<- setupData(Tag.Detections = IMOSdata, Tag.Metadata = taginfo, Station.Information = statinfo, source = "IMOS")
 
 ## Estimate detecion metrics with monthly subsets chosen
 dispSum<-dispersalSummary(ATTdata)

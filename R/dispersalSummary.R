@@ -25,12 +25,12 @@
 #' @import maptools
 #' @examples
 #' ## Import example datasets
-#' data(tagdata)
+#' data(IMOSdata)
 #' data(taginfo)
 #' data(statinfo)
 #'
 #' ## Setup data
-#' ATTdata<- setupData(Tag.Detections = tagdata, Tag.Metadata = taginfo, Station.Information = statinfo)
+#' ATTdata<- setupData(Tag.Detections = IMOSdata, Tag.Metadata = taginfo, Station.Information = statinfo, source = "IMOS")
 #'
 #' ## Estimate detecion metrics with monthly subsets chosen
 #' dispSum<-dispersalSummary(ATTdata)
@@ -41,7 +41,7 @@ dispersalSummary<-function(ATTdata){
          \nSet up your data first using setupData() before running this operation")
 
   ## Combine Tag.Detection and Tag.Metadata into a combined tibble for processing
-  data<- left_join(ATTdata$Tag.Detections, ATTdata$Tag.Metadata, by="Tag.ID")
+  data<- left_join(ATTdata$Tag.Detections, ATTdata$Tag.Metadata, by="Transmitter")
 
   ## CRS for geographic coordinates from ATTdata object
   ll<-attr(ATTdata, "CRS")

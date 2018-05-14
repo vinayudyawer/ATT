@@ -70,6 +70,7 @@ setupData<-function(Tag.Detections, Tag.Metadata, Station.Information, source=NU
         Tag.Detections = Tag.Detections,
         Tag.Metadata = as_tibble(Tag.Metadata) %>%
           transmute(Tag.ID = tag_id,
+                    Transmitter = transmitter_id,
                     Sci.Name = scientific_name,
                     Common.Name = common_name,
                     Tag.Project = tag_project_name,

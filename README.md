@@ -16,8 +16,8 @@ detection and release site) and activity space (e.g. Minimum Convex
 Polygon MCP area, Kernel Utilisation Distribution area), however the
 techniques and parameters used to calculate these metrics are often
 customised to each study making cross-study comparisons unreliable. Here
-we provide a tool to enable standardisation of the calculation of these
-commonly used metrics and provide an analytical tool to facilitate.
+we provide a tool to facilitate a standardised workflow to calculate these
+commonly used metrics.
 
 <br>
 
@@ -101,13 +101,17 @@ Usage
 Setting up data
 
 ```{r, include=TRUE, eval=TRUE}
+## Load library
+library(ATT)
+
 ## Input example datasets
-data(tagdata) 
+data(IMOSdata)  ## Detection data exported from IMOS data repository
+data(VEMCOdata) ## Detection data exported from a VUE database
 data(taginfo)
 data(statinfo)
 
 ## Setup data for use with the Animal Tracking Toolbox
-ATTdata<- setupData(Tag.Detections = tagdata, Tag.Metadata = taginfo, Station.Information = statinfo)
+ATTdata<- setupData(Tag.Detections = IMOSdata, Tag.Metadata = taginfo, Station.Information = statinfo, source="IMOS")
 
 ```
 

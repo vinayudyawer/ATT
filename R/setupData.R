@@ -46,8 +46,7 @@ setupData<-function(Tag.Detections, Tag.Metadata, Station.Information, source=NU
   if(source %in% "IMOS"){
     Tag.Detections = as_tibble(Tag.Detections) %>%
       transmute(Date.Time = lubridate::ymd_hms(detection_timestamp, tz=tz),
-                Tag.ID = tag_id,
-                Transmitter.Name = transmitter_id,
+                Transmitter = transmitter_id,
                 Station.Name = station_name,
                 Receiver = receiver_name,
                 Latitude = latitude,

@@ -32,7 +32,7 @@ in the R statistical environment (R Development Core Team 2018) that
 calculates standardised metrics of dispersal and activity space from
 passive telemetry to enable direct comparisons between animals tracked
 within the same study and between studies or locations. The functions
-uses individual detection data files alongside tag metadata and receiver
+uses detection data alongside tag metadata and receiver
 station information to calculate a range of standardised movement and
 activity space metrics. This toolbox can be used to calculate and
 visualise standardised metrics of movement and activity space within and
@@ -50,12 +50,10 @@ between species tracked at multiple locations.
 The ATT was developed to preprocess and calculate standardised metrics
 of dispersal and activity space from large-scale detection data housed in
 the Integrated Marine Observing System’s Animal Tracking Facility (IMOS
-ATF) national data repository. The ATT accepts detection data (referred
-to as ‘tagdata’ in the function) exported from the IMOS ATF database
-(can be accessed through the [AODN portal](https://portal.aodn.org.au)),
-however we are working on including functionality for data export formats 
-from the VEMCO data management software VUE and other passive telemetry 
-networks. 
+ATF) national data repository. The ATT accepts detection data exported from the IMOS ATF database (referred
+to as ‘IMOSdata’ here, and can be accessed through the [AODN portal](https://portal.aodn.org.au)). The ATT can also 
+be used to analyse data exported from the VEMCO data management software VUE. We are currently working on the 
+functionality for using the ATT with detection data exported from other passive telemetry networks. 
 
 <br>
 

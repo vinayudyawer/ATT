@@ -52,7 +52,7 @@ of dispersal and activity space from large-scale detection data housed in
 the Integrated Marine Observing System’s Animal Tracking Facility (IMOS
 ATF) national data repository. The ATT accepts detection data exported from the IMOS ATF database (referred
 to as ‘IMOSdata’ here, and can be accessed through the [AODN portal](https://portal.aodn.org.au)). The ATT can also 
-be used to analyse data exported from the VEMCO data management software VUE. We are currently working on the 
+be used to analyse data exported from the VEMCO data management software VUE (refered to as 'VEMCOdata' here). We are currently working on additional
 functionality for using the ATT with detection data exported from other passive telemetry networks. 
 
 <br>

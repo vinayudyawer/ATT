@@ -110,9 +110,9 @@ data(statinfo)
 
 ## Setup data for use with the Animal Tracking Toolbox
 ATTdata<- setupData(Tag.Detections = IMOSdata, 
-Tag.Metadata = taginfo, 
-Station.Information = statinfo, 
-source="IMOS")
+                    Tag.Metadata = taginfo, 
+                    Station.Information = statinfo, 
+                    source="IMOS")
 
 ```
 
@@ -136,8 +136,8 @@ abacusPlot(ATTdata)
 ```{r, include=TRUE, eval=TRUE}
 ## Create a facetted abacus plot for individuals 77523274 and 77523147
 abacusPlot(ATTdata, 
-id=c("77523274","77523147"), 
-facet=TRUE)
+           id=c("77523274","77523147"), 
+           facet=TRUE)
 ```
 <img src="images/Fig4.png"/>
 
@@ -163,23 +163,23 @@ proj<-CRS("+init=epsg:3577")
 ## HRSummary() requires calculation of COAs first
 ## Estimate 100% MCP areas
 mcp_est <- HRSummary(COAdata, 
-projCRS=proj, 
-type="MCP", 
-cont=100)
+                     projCRS=proj, 
+                     type="MCP", 
+                     cont=100)
 
 ##*** Warning: the following might take a while to run! ***##
 ## Estimate 50% and 95% fKUD areas with cumulative metrics calculated
 kud_est<-HRSummary(COAdata, 
-projCRS=proj, 
-type="fKUD", 
-cumulative=TRUE)
+                   projCRS=proj, 
+                   type="fKUD", 
+                   cumulative=TRUE)  
 
 ## Estimate 20%, 50% and 95% BBKUD contour areas and store polygons
 kud_est<-HRSummary(COAdata, 
-projCRS=proj, 
-type="BBKUD", 
-cont=c(20,50,95), 
-storepoly=TRUE)
+                   projCRS=proj, 
+                   type="BBKUD", 
+                   cont=c(20,50,95), 
+                   storepoly=TRUE)
 
 ```
 ***More functions to visualise standardised metrics coming soon!!***

@@ -50,7 +50,7 @@ detectionSummary<-function(ATTdata, sub='%Y-%m'){
   ## Detection metric calculations for full tag life
   full<- combdata %>%
     group_by(Tag.ID) %>%
-    summarize(Tranmitter.Name = first(Transmitter.Name),
+    summarize(Tranmitter = first(Transmitter),
               Sci.Name = first(Sci.Name),
               Sex = first(Sex),
               Bio = first(Bio),
@@ -65,7 +65,7 @@ detectionSummary<-function(ATTdata, sub='%Y-%m'){
   ## Detection metric calculations for temporal subsets
   tsub<- combdata %>%
     group_by(Tag.ID, subset) %>%
-    summarize(Tranmitter.Name = first(Transmitter.Name),
+    summarize(Tranmitter = first(Transmitter),
               Sci.Name = first(Sci.Name),
               Sex = first(Sex),
               Bio = first(Bio),

@@ -149,7 +149,7 @@ Tag metadata input format is based on IMOS ATF metadata structure
 
 | Data field | Description | Required field? |
 |:---------- |:----------- |:--------------- |
-| tag_id |	Unique tag ID. Dual sensor tags have different transmitter IDs but the same tag ID. | Yes |
+| tag_id |	Unique tag ID. Dual sensor tags will have different transmitter IDs but the same tag ID. This field is to ensure tags are associated with animals. Can include a character vector or numeric (e.g. "Tigger", A1343, 1345). Individual animals will be differentiated using the unique ID in this field, and will be used as labels in data outputs and graphs from the ATT functions | Yes |
 | transmitter_id |	Combination of code map and ping ID (e.g. . A69-9002-12345) | Yes |
 | scientific_name |	Tagged species scientific name | Yes |
 | common_name |	Tagged species common name | Yes |
@@ -177,7 +177,7 @@ Receiver metadata input format is based on IMOS ATF metadata structure
 
 | Data field | Description | Required field? |
 |:---------- |:----------- |:--------------- |
-| station_name | Name of receiving station. Acoustic receivers typically gets deployed multiple times at the same station | Yes |
+| station_name | Name of receiving station. Acoustic receivers typically gets deployed multiple times at the same station. Station name will be used to differentiate reciever stations rather than Receiver serial numbers as often multiple units are used for each station location (i.e. either replacing damaged receivers or cycling through different receivers when downloading data) | Yes |
 | receiver_name | Name of acoustic receiver, combines receiver model with its serial number (e.g. VR2W-123456) | Yes |
 | installation_name | Name of installation of which receiver is part of. An installation typically consists of multiple receiving stations | Yes |
 | project_name | Project name under which the receiver was registered under | Yes |

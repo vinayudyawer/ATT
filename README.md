@@ -104,7 +104,7 @@ Analysing passive telemetry data requires three sets of data: Tag detection data
 
 ### Tag detection data formats
 <br>
-#### VEMCO input format
+**VEMCO input format**
 
 | Data field | Description | Required field? |
 |:---------- |:----------- |:--------------- |
@@ -120,7 +120,7 @@ Analysing passive telemetry data requires three sets of data: Tag detection data
 | Transmitter Serial |	Manufacturers serial number for deployed transmitter (e.g. 1126413) | No |
 
 <br>
-#### IMOS ATF input format
+**IMOS ATF input format**
 
 | Data field | Description | Required field? |
 |:---------- |:----------- |:--------------- |
@@ -143,7 +143,7 @@ Analysing passive telemetry data requires three sets of data: Tag detection data
 | Detection_QC |	Composite detection flag indicating the likely validity of detections (1:valid detection, 2:probably valid detection, 3:probably bad detection, 4:bad detection) | No |
 
 <br>
-#### Tag metadata input format
+**Tag metadata input format**
 Tag metadata input format is based on IMOS ATF metadata structure
 
 | Data field | Description | Required field? |
@@ -170,7 +170,7 @@ Tag metadata input format is based on IMOS ATF metadata structure
 | dual_sensor_tag |	Is the tag a dual sensor tag (TRUE/FALSE) | No |
 
 <br>
-#### Receiver metadata input format
+**Receiver metadata input format**
 Receiver metadata input format is based on IMOS ATF metadata structure
 
 | Data field | Description | Required field? |

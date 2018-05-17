@@ -253,6 +253,7 @@ Calculating activity space metrics
 COAdata<-COA(ATTdata)
 
 ## Define projected Coordinate Reference System 
+# projected coordinate systems should signify distance in meters
 # (here epsg:3577 refers to the GDA94 Australian Albers projection)
 proj<-CRS("+init=epsg:3577")
 
@@ -265,13 +266,13 @@ mcp_est <- HRSummary(COAdata,
 
 ##*** Warning: the following might take a while to run! ***##
 ## Estimate 50% and 95% fKUD areas with cumulative metrics calculated
-kud_est<-HRSummary(COAdata, 
+fkud_est<-HRSummary(COAdata, 
                    projCRS=proj, 
                    type="fKUD", 
                    cumulative=TRUE)  
 
 ## Estimate 20%, 50% and 95% BBKUD contour areas and store polygons
-kud_est<-HRSummary(COAdata, 
+BBkud_est<-HRSummary(COAdata, 
                    projCRS=proj, 
                    type="BBKUD", 
                    cont=c(20,50,95), 

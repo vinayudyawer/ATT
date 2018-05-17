@@ -2,7 +2,7 @@
 Animal Tracking Toolbox Quick Guide
 ===================================
 
-## Background
+Background
 ------------
 
 Passive telemetry studies use detection patterns of a tagged animal
@@ -63,7 +63,7 @@ tag detection data (either `IMOSdata` or `VEMCOdata`), associated tag metadata (
 also demonstrate how to run the function for a single tag as well as
 running the function for a large number of tags.
 
-## Installation
+Installation
 ------------
 
 Currently the development version can be accessed from GitHub:
@@ -74,7 +74,7 @@ devtools::install_github("vinayudyawer/ATT")
 The Animal Tracking Toolbox will be eventually integrated into the 'VTrack' package.
 
 
-## Functions within the toolbox
+Functions within the toolbox
 ------------
 
 The Animal Tracking Toolbox is comprised of five main functions that work in series:
@@ -95,7 +95,7 @@ In addition to these functions, there are additional functions to help plot dete
 
 <br>
 
-## Input data formats
+Input data formats
 ------------
 
 Analysing passive telemetry data requires three sets of data: Tag detection data (refered to here as either `IMOSdata` or `VEMCOdata`, depending on data source); Tag metadata (`tagdata`); and Receiver metadata (`statinfo`). The ATT was developed to recognise field names from the IMOS ATF database and more generally from a VEMCO VUE database that is commonly used in the field of passive acoustic telemetry. These data formats are detailed below, and can be used as a guide to configure the tag detection data input if the VEMCO or IMOS ATF data formats are not used. The `taginfo` and `statinfo` data formats conforms to the metadata information stored on the IMOS ATF database, and similar formats should be used to store metadata information on animals tagged for analysing passive acoustic telemetry data.
@@ -183,7 +183,7 @@ Receiver metadata input format is based on IMOS ATF metadata structure
 | status | Status of receiver (e.g. deployed, lost, damaged, recovered, etc) | Yes |
 
 
-## Usage
+Usage
 ------------
 
 Load the ATT library
@@ -276,6 +276,15 @@ kud_est<-HRSummary(COAdata,
 
 <br>
 <br>
+
+Authors
+---------------
+Vinay Udyawer <br> <v.udyawer@aims.gov.au> <br> Australian Institute of Marine Science
+
+Ross Dwyer <br> <ross.dwyer@uq.edu.au> <br> University of Queensland
+
+Xavier Hoenner <br> <xavier.hoenner@utas.edu.au> <br> Australian Ocean Data Network
+
 
 Current version
 ---------------

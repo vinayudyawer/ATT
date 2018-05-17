@@ -296,4 +296,4 @@ Xavier Hoenner <br> <xavier.hoenner@utas.edu.au> <br> Australian Ocean Data Netw
 Current version
 ---------------
 
-1.0.0 (1 May 2018)
+1.0.0 (18 May 2018)

@@ -2,7 +2,7 @@
 Animal Tracking Toolbox Quick Guide
 ===================================
 
-Background
+## Background
 ------------
 
 Passive telemetry studies use detection patterns of a tagged animal
@@ -58,21 +58,23 @@ functionality for using the ATT with detection data exported from other passive 
 <br>
 
 This manual will outline the required data formats for input 
-‘tagdata’ and associated tag metadata (referred to as ‘taginfo’ 
-) and receiver station information ('statinfo'). This manual will
+tag detection data (either `IMOSdata` or `VEMCOdata`), associated tag metadata (referred to as `taginfo` 
+) and receiver station information (`statinfo`). This manual will
 also demonstrate how to run the function for a single tag as well as
 running the function for a large number of tags.
 
-Installation
+## Installation
 ------------
 
+Currently the development version can be accessed from GitHub:
 ``` r
-# Currently the development version can be accessed from GitHub:
 install.packages("devtools")
 devtools::install_github("vinayudyawer/ATT")
 ```
+The Animal Tracking Toolbox will be eventually integrated into the 'VTrack' package.
 
-Functions within the toolbox
+
+## Functions within the toolbox
 ------------
 
 The Animal Tracking Toolbox is comprised of five main functions that work in series:
@@ -93,15 +95,104 @@ In addition to these functions, there are additional functions to help plot dete
 
 <br>
 
-Usage
+## Input data formats
 ------------
 
-Setting up data
+Analysing passive telemetry data requires three sets of data: Tag detection data (refered to here as either `IMOSdata` or `VEMCOdata`, depending on data source); Tag metadata (`tagdata`); and Receiver metadata (`statinfo`). The ATT was developed to recognise field names from the IMOS ATF database and more generally from a VEMCO VUE database that is commonly used in the field of passive acoustic telemetry. These data formats are detailed below, and can be used as a guide to configure the tag detection data input if the VEMCO or IMOS ATF data formats are not used. The `taginfo` and `statinfo` data formats conforms to the metadata information stored on the IMOS ATF database, and similar formats should be used to store metadata information on animals tagged for analysing passive acoustic telemetry data.
 
+### Tag detection data formats
+
+#### VEMCO input format
+
+| Data field | Description | Required field? |
+|:---------- |:----------- |:--------------- |
+| Date and Time (UTC) |	Date and time of tag detection (yyyy-mm-dd HH:MM:SS) | Yes |
+| Receiver |	Name of acoustic receiver, combines receiver model with its serial number (e.g. VR2W-123456) | Yes |
+| Transmitter |	Combination of code map and ping ID (eg. A69-1303-14503) | Yes |
+| Sensor Value |	Physical measurement recorded by a tag’s sensor, if applicable (If sensor data hasn’t been converted then sensor_unit = ‘ADC’ and values range from 0 to 255.) | Yes |
+| Sensor Unit |	Physical unit associated with sensor values (Either ‘ADC’, ‘°C’, ‘m’ or ‘m/s2’) | Yes |
+| Station Name |	Name of receiving station on which the transmitter was detected. Acoustic receivers typically gets deployed multiple times at the same station | Yes |
+| Latitude |	Latitude at which receiver was deployed and tag was detected (d.ddd˚) | Yes |
+| Longitude |	Longitude at which receiver was deployed and tag was detected (d.ddd˚) | Yes |
+| Transmitter Name |	Ping ID of transmitter deployed (e.g. 14503) | No |
+| Transmitter Serial |	Manufacturers serial number for deployed transmitter (e.g. 1126413) | No |
+
+
+#### IMOS ATF input format
+
+| Data field | Description | Required field? |
+|:---------- |:----------- |:--------------- |
+| transmitter_id |	Combination of code map and ping ID. Dual sensor tags are associated with multiple transmitter IDs (e.g. A69-9002-12345) | Yes |
+| station_name |	Name of receiving station on which the transmitter was detected. Acoustic receivers typically gets deployed multiple times at the same station | Yes |
+| receiver_name |	Name of acoustic receiver, combines receiver model with its serial number (e.g. VR2W-123456) | Yes |
+| detection_timestamp |	Date and time of tag detection (yyyy-mm-dd HH:MM:SS) | Yes |
+| longitude |	Longitude at which receiver was deployed and tag was detected (d.ddd˚) | Yes |
+| latitude |	Latitude at which receiver was deployed and tag was detected (d.ddd˚) | Yes |
+| sensor_value |	Physical measurement recorded by a tag’s sensor, if applicable (If sensor data hasn’t been converted then sensor_unit = ‘ADC’ and values range from 0 to 255.) | Yes |
+| sensor_unit |	Physical unit associated with sensor values (Either ‘ADC’, ‘°C’, ‘m’ or ‘m/s2’) | Yes |
+| installation_name |	Name of installation on which the transmitter was detected. An installation typically consists of multiple receiving stations | No |
+| FDA_QC |	Quality control flag for the false detection algorithm (1:passed, 2:failed) | No |
+| Velocity_QC |	Velocity from previous and next detections both 10 m.s-1? (1:yes, 2:no) | No |
+| Distance_QC |	Distance from previous and next detections both < 1000 km? (1:yes, 2:no) | No |
+| DetectionDistribution_QC |	Detection occurred within expert distribution area? (1:yes, 2:no, 3:test not performed) | No |
+| DistanceRelease_QC |	Detection occurred within 500 km of release location? (1:yes, 2:no) | No |
+| ReleaseDate_QC |	Detection occurred before the tag release date? (1:yes, 2:no) | No |
+| ReleaseLocation_QC |	Tag release lat/long coordinates within expert distribution area and/or within 500 km from first detection? (1:yes, 2:no) | No |
+| Detection_QC |	Composite detection flag indicating the likely validity of detections (1:valid detection, 2:probably valid detection, 3:probably bad detection, 4:bad detection) | No |
+
+
+#### Tag metadata input format
+Tag metadata input format is based on IMOS ATF metadata structure
+
+| Data field | Description | Required field? |
+|:---------- |:----------- |:--------------- |
+| tag_id |	Unique tag ID. Dual sensor tags have different transmitter IDs but the same tag ID. | Yes |
+| transmitter_id |	Combination of code map and ping ID (e.g. . A69-9002-12345) | Yes |
+| scientific_name |	Tagged species scientific name | Yes |
+| common_name |	Tagged species common name | Yes |
+| tag_project_name |	Project name under which a tag was registered | Yes |
+| release_id |	Unique tag release ID. A given tag ID may be associated with several release IDs if it has been re-deployed. | Yes |
+| release_latitude |	Latitude at which tag was deployed (d.ddd˚) | Yes |
+| release_longitude |	Longitude at which tag was deployed (d.ddd˚ | Yes |
+| ReleaseDate |	Date and time at which tag was deployed (yyyy-mm-dd HH:MM:SS) | Yes |
+| tag_expected_life_time_days |	Tag expected life time (days) | Yes |
+| tag_status |	Tag status (e.g. deployed, lost, etc) | Yes |
+| sex |	Sex of tagged animal (if recorded) | Yes |
+| measurement |	Morphometric information of tagged animal (if recorded; e.g. Total length, weight) | Yes |
+| sensor_slope |	Slope used in the linear equation to convert raw sensor measurements | No |
+| sensor_intercept |	Intercept used in the linear equation to convert raw sensor measurements | No |
+| sensor_type |	Type of sensor (Can be pinger, temperature, pressure, or accelerometer) | No |
+| sensor_unit |	Physical unit associated with sensor values (Either ‘ADC’, ‘°C’, ‘m’ or ‘m/s2’) | No |
+| tag_model_name |	Tag model (e.g. V9, V13-TP, V16-P, V9-A) | No |
+| tag_serial_number |	Manufacturers serial number for deployed transmitter (e.g. 1126413) | No |
+| dual_sensor_tag |	Is the tag a dual sensor tag (TRUE/FALSE) | No |
+
+#### Receiver metadata input format
+Receiver metadata input format is based on IMOS ATF metadata structure
+
+| Data field | Description | Required field? |
+|:---------- |:----------- |:--------------- |
+| station_name | Name of receiving station. Acoustic receivers typically gets deployed multiple times at the same station | Yes |
+| receiver_name | Name of acoustic receiver, combines receiver model with its serial number (e.g. VR2W-123456) | Yes |
+| installation_name | Name of installation of which receiver is part of. An installation typically consists of multiple receiving stations | Yes |
+| project_name | Project name under which the receiver was registered under | Yes |
+| deploymentdatetime_timestamp | Date and time at which receiver was deployed (yyyy-mm-dd HH:MM:SS) | Yes |
+| recoverydatetime_timestamp | Date and time at which receiver was recovered/removed (yyyy-mm-dd HH:MM:SS) | Yes |
+| station_latitude | Latitude at which receiver was deployed (d.ddd˚) | Yes |
+| station_longitude | Longitude at which receiver was deployed (d.ddd˚) | Yes |
+| status | Status of receiver (e.g. deployed, lost, damaged, recovered, etc) | Yes |
+
+
+## Usage
+------------
+
+Load the ATT library
 ```{r, include=TRUE, eval=TRUE}
-## Load library
 library(ATT)
+```
 
+Setup data for smooth functioning with other ATT functions
+```{r, include=TRUE, eval=TRUE}
 ## Input example datasets
 data(IMOSdata)  ## Detection data exported from IMOS data repository
 data(VEMCOdata) ## Detection data exported from a VUE database
@@ -113,7 +204,6 @@ ATTdata<- setupData(Tag.Detections = IMOSdata,
                     Tag.Metadata = taginfo, 
                     Station.Information = statinfo, 
                     source="IMOS")
-
 ```
 
 Calculating detection metrics

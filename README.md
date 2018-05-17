@@ -100,8 +100,10 @@ Input data formats
 
 Analysing passive telemetry data requires three sets of data: Tag detection data (refered to here as either `IMOSdata` or `VEMCOdata`, depending on data source); Tag metadata (`tagdata`); and Receiver metadata (`statinfo`). The ATT was developed to recognise field names from the IMOS ATF database and more generally from a VEMCO VUE database that is commonly used in the field of passive acoustic telemetry. These data formats are detailed below, and can be used as a guide to configure the tag detection data input if the VEMCO or IMOS ATF data formats are not used. The `taginfo` and `statinfo` data formats conforms to the metadata information stored on the IMOS ATF database, and similar formats should be used to store metadata information on animals tagged for analysing passive acoustic telemetry data.
 
-### Tag detection data formats
+<br>
 
+### Tag detection data formats
+<br>
 #### VEMCO input format
 
 | Data field | Description | Required field? |
@@ -117,7 +119,7 @@ Analysing passive telemetry data requires three sets of data: Tag detection data
 | Transmitter Name |	Ping ID of transmitter deployed (e.g. 14503) | No |
 | Transmitter Serial |	Manufacturers serial number for deployed transmitter (e.g. 1126413) | No |
 
-
+<br>
 #### IMOS ATF input format
 
 | Data field | Description | Required field? |
@@ -140,7 +142,7 @@ Analysing passive telemetry data requires three sets of data: Tag detection data
 | ReleaseLocation_QC |	Tag release lat/long coordinates within expert distribution area and/or within 500 km from first detection? (1:yes, 2:no) | No |
 | Detection_QC |	Composite detection flag indicating the likely validity of detections (1:valid detection, 2:probably valid detection, 3:probably bad detection, 4:bad detection) | No |
 
-
+<br>
 #### Tag metadata input format
 Tag metadata input format is based on IMOS ATF metadata structure
 
@@ -167,6 +169,7 @@ Tag metadata input format is based on IMOS ATF metadata structure
 | tag_serial_number |	Manufacturers serial number for deployed transmitter (e.g. 1126413) | No |
 | dual_sensor_tag |	Is the tag a dual sensor tag (TRUE/FALSE) | No |
 
+<br>
 #### Receiver metadata input format
 Receiver metadata input format is based on IMOS ATF metadata structure
 
@@ -182,6 +185,7 @@ Receiver metadata input format is based on IMOS ATF metadata structure
 | station_longitude | Longitude at which receiver was deployed (d.ddd˚) | Yes |
 | status | Status of receiver (e.g. deployed, lost, damaged, recovered, etc) | Yes |
 
+<br>
 
 Usage
 ------------

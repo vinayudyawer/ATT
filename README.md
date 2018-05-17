@@ -102,7 +102,7 @@ Analysing passive telemetry data requires three sets of data: Tag detection data
 
 <br>
 
-### Tag detection data formats
+#### Tag detection data formats
 <br>
 **VEMCO input format**
 
@@ -119,7 +119,7 @@ Analysing passive telemetry data requires three sets of data: Tag detection data
 | Transmitter Name |	Ping ID of transmitter deployed (e.g. 14503) | No |
 | Transmitter Serial |	Manufacturers serial number for deployed transmitter (e.g. 1126413) | No |
 
-<br>
+
 **IMOS ATF input format**
 
 | Data field | Description | Required field? |
@@ -142,8 +142,9 @@ Analysing passive telemetry data requires three sets of data: Tag detection data
 | ReleaseLocation_QC |	Tag release lat/long coordinates within expert distribution area and/or within 500 km from first detection? (1:yes, 2:no) | No |
 | Detection_QC |	Composite detection flag indicating the likely validity of detections (1:valid detection, 2:probably valid detection, 3:probably bad detection, 4:bad detection) | No |
 
-<br>
+
 **Tag metadata input format**
+
 Tag metadata input format is based on IMOS ATF metadata structure
 
 | Data field | Description | Required field? |
@@ -169,8 +170,9 @@ Tag metadata input format is based on IMOS ATF metadata structure
 | tag_serial_number |	Manufacturers serial number for deployed transmitter (e.g. 1126413) | No |
 | dual_sensor_tag |	Is the tag a dual sensor tag (TRUE/FALSE) | No |
 
-<br>
+
 **Receiver metadata input format**
+
 Receiver metadata input format is based on IMOS ATF metadata structure
 
 | Data field | Description | Required field? |
@@ -191,12 +193,12 @@ Usage
 ------------
 
 Load the ATT library
-```{r, include=TRUE, eval=TRUE}
+```ruby
 library(ATT)
 ```
 
 Setup data for smooth functioning with other ATT functions
-```{r, include=TRUE, eval=TRUE}
+```ruby
 ## Input example datasets
 data(IMOSdata)  ## Detection data exported from IMOS data repository
 data(VEMCOdata) ## Detection data exported from a VUE database
@@ -211,7 +213,7 @@ ATTdata<- setupData(Tag.Detections = IMOSdata,
 ```
 
 Calculating detection metrics
-```{r, include=TRUE, eval=TRUE}
+```ruby
 ## Calculate detecion metrics with monthly subsets chosen
 detSum<-detectionSummary(ATTdata, sub = "%Y-%m")
 
@@ -227,7 +229,7 @@ abacusPlot(ATTdata)
 ```
 <img src="images/Fig3.png"/>
 
-```{r, include=TRUE, eval=TRUE}
+```ruby
 ## Create a facetted abacus plot for individuals 77523274 and 77523147
 abacusPlot(ATTdata, 
            id=c("77523274","77523147"), 
@@ -236,7 +238,7 @@ abacusPlot(ATTdata,
 <img src="images/Fig4.png"/>
 
 Calculating dispersal metrics
-```{r, include=TRUE, eval=TRUE}
+```ruby
 ## Calculate dispersal metrics
 dispSum<-dispersalSummary(ATTdata)
 
@@ -246,7 +248,7 @@ dispSum
 ```
 
 Calculating activity space metrics
-```{r, include=TRUE, eval=TRUE}
+```ruby
 ## First, estimate Short-term center of activities
 COAdata<-COA(ATTdata)
 

@@ -102,9 +102,10 @@ Analysing passive telemetry data requires three sets of data: Tag detection data
 
 <br>
 
-#### Tag detection data formats
-<br>
-**VEMCO input format**
+### Tag detection data formats
+
+<br><br>
+#### VEMCO input format
 
 | Data field | Description | Required field? |
 |:---------- |:----------- |:--------------- |
@@ -119,8 +120,8 @@ Analysing passive telemetry data requires three sets of data: Tag detection data
 | Transmitter Name |	Ping ID of transmitter deployed (e.g. 14503) | No |
 | Transmitter Serial |	Manufacturers serial number for deployed transmitter (e.g. 1126413) | No |
 
-
-**IMOS ATF input format**
+<br><br>
+#### IMOS ATF input format
 
 | Data field | Description | Required field? |
 |:---------- |:----------- |:--------------- |
@@ -142,8 +143,8 @@ Analysing passive telemetry data requires three sets of data: Tag detection data
 | ReleaseLocation_QC |	Tag release lat/long coordinates within expert distribution area and/or within 500 km from first detection? (1:yes, 2:no) | No |
 | Detection_QC |	Composite detection flag indicating the likely validity of detections (1:valid detection, 2:probably valid detection, 3:probably bad detection, 4:bad detection) | No |
 
-
-**Tag metadata input format**
+<br><br>
+#### Tag metadata input format
 
 Tag metadata input format is based on IMOS ATF metadata structure
 
@@ -170,8 +171,8 @@ Tag metadata input format is based on IMOS ATF metadata structure
 | tag_serial_number |	Manufacturers serial number for deployed transmitter (e.g. 1126413) | No |
 | dual_sensor_tag |	Is the tag a dual sensor tag (TRUE/FALSE) | No |
 
-
-**Receiver metadata input format**
+<br><br>
+#### Receiver metadata input format
 
 Receiver metadata input format is based on IMOS ATF metadata structure
 

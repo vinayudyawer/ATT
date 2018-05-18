@@ -40,8 +40,7 @@
 setupData<-function(Tag.Detections, Tag.Metadata, Station.Information, source=NULL, tz="UTC", crs=NULL){
 
   if(is.null(source))
-    stop("Can't recognize the source of your tag detection data.
-         \nsource should be either 'IMOS' or 'VEMCO'")
+    stop("Can't recognize the source of your tag detection data.\n'source' should be either 'IMOS' or 'VEMCO'")
 
   if(source %in% "IMOS"){
     Tag.Detections = as_tibble(Tag.Detections) %>%

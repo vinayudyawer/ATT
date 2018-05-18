@@ -491,6 +491,7 @@ The `$Spatial.Objects` list object in itself consists of a nested list. The exam
 
 Each raster object or raster stack can be plotted and manipulated using the `raster` library
 ```ruby
+library(raster)
 library(viridis) ## access more color palettes!
 
 ## Lets plot the overall BBKUD for Tag.ID `77523307`

@@ -227,7 +227,7 @@ detSum<-detectionSummary(ATTdata,
 detSum
 $Overall
 # A tibble: 11 x 10
-    Tag.ID Tranmitter Sci.Name Sex   Bio   Number.of.Detec… Number.of.Stati… Days.Detected Days.at.Liberty
+    Tag.ID Transmitt… Sci.Name Sex   Bio   Number.of.Detec… Number.of.Stati… Days.Detected Days.at.Liberty
      <int> <fct>      <fct>    <fct> <fct>            <int>            <int>         <int>           <dbl>
  1  4.46e6 A69-1303-… Galeoce… FEMA… NA                   9                4             1             858
  2  5.14e7 A69-9002-… Galeoce… FEMA… FORK…              765               43            82             828
@@ -244,7 +244,7 @@ $Overall
 
 $Subsetted
 # A tibble: 197 x 12
-    Tag.ID subset  Tranmitter  Sci.Name   Sex   Bio       Number.of.Detect… Number.of.Stati… Days.Detected
+    Tag.ID subset  Transmitt…  Sci.Name   Sex   Bio       Number.of.Detect… Number.of.Stati… Days.Detected
      <int> <fct>   <fct>       <fct>      <fct> <fct>                 <int>            <int>         <int>
  1  4.46e6 2012-12 A69-1303-6… Galeocerd… FEMA… NA                        9                4             1
  2  5.14e7 2012-09 A69-9002-1… Galeocerd… FEMA… FORK LEN…                 1                1             1

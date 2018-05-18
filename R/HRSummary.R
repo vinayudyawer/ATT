@@ -61,8 +61,7 @@
 HRSummary<-function(COAdata, projCRS, type="MCP", cont=c(50,95), sub='%Y-%m', cumulative=FALSE, storepoly=FALSE, h=500, ext=2, grid=200, div=4){
 
   if(!inherits(COAdata, "COA"))
-    stop("Oops! Input data needs to be a 'COA' object.
-         \nEstimate Short-term Center of Activities first using COA() before running this operation.")
+    stop("Oops! Input data needs to be a 'COA' object.\nEstimate Short-term Center of Activities first using COA() before running this operation.")
   if(!inherits(projCRS, "CRS"))
     stop("Sorry! The projected coordinate reference system should be a CRS object, see ?CRS")
   if(!sub %in% c('%Y-%m','%Y-%W'))

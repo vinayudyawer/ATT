@@ -505,7 +505,7 @@ plot(BBkud_est
 
 
 ```ruby
-## We can also plot the raster stack for all tempora subsets for Tag.ID `77523307`
+## We can also plot the raster stack for all temporal subsets for Tag.ID `77523307`
 plot(BBkud_est
      $ Spatial.Objects
      $ `77523307`

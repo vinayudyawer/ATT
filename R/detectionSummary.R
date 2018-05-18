@@ -38,8 +38,7 @@
 detectionSummary<-function(ATTdata, sub='%Y-%m'){
 
   if(!inherits(ATTdata, "ATT"))
-    stop("Oops! Input data needs to be an 'ATT' object.
-         \nSet up your data first using setupData() before running this operation")
+    stop("Oops! Input data needs to be an 'ATT' object.\nSet up your data first using setupData() before running this operation")
   if(!sub %in% c('%Y-%m','%Y-%W'))
     stop("Sorry! I can't recognise the temporal subset chosen.\nChoose one of the following subsets:\n\tMonthly   = '%Y-%m'\n\tWeekly  = '%Y-%W'")
 

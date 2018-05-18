@@ -34,8 +34,7 @@
 #'
 COA<-function (ATTdata, timestep=60, split=FALSE){
   if(!inherits(ATTdata, "ATT"))
-    stop("Oops! Input data needs to be an 'ATT' object.
-         \nSet up your data first using setupData() before running this operation")
+    stop("Oops! Input data needs to be an 'ATT' object.\nSet up your data first using setupData() before running this operation")
 
   ## Combine Tag.Detection and Tag.Metadata into a combined tibble for processing
   data<- left_join(ATTdata$Tag.Detections, ATTdata$Tag.Metadata, by="Transmitter") %>%

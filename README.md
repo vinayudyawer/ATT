@@ -473,20 +473,16 @@ The `$Spatial.Objects` list object in itself consists of a nested list. The exam
 
 <pre>
 `BBkud_est`
-    |
     |---> `$Overall`    : tibble data frame with activity space metrics for full tag life
-    |
     |---> `$Subsetted`  : tibble data frame with activity space metrics for each temporal subset
-    |
     |---> `$Spatial.Objects` : list object with as many components as unique Tag.IDs in the data
-                |
-                |---> `51448633` : a list object for each Tag.ID (here we are only representing one tag `51448633`)
-                          |
+                |---> `51448633`
+                |---> `77523307`
                           |----> `$BBKUD_full` : a raster object with the BBKUD for the full tag life
-                          |
                           |----> `$BBKUD_sub`  : a raster stack object with the BBKUD for each temporal subset
-                                      |
-                                      |-----> `$X2013.07` : a raster object with the BBKUD calculated for subset '2013-07' (July 2013)
+                                      |-----> `$X2013.05` : raster object for subset '2013-05' (May 2013)
+                                      |-----> `$X2013.06` : raster object for subset '2013-06' (June 2013)
+                                      |-----> `$X2013.07` : raster object for subset '2013-07' (July 2013)
 </pre>
 
 Each raster object or raster stack can be plotted and manipulated using the `raster` library

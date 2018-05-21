@@ -75,7 +75,7 @@ setupData<-function(Tag.Detections, Tag.Metadata, Station.Information, source=NU
                     Tag.Project = tag_project_name,
                     Release.Latitude = release_latitude,
                     Release.Longitude = release_longitude,
-                    Release.Date = lubridate::date(ymd_hms(taginfo$ReleaseDate, tz=tz)),
+                    Release.Date = lubridate::date(ymd_hms(ReleaseDate, tz=tz)),
                     Tag.Life = tag_expected_life_time_days,
                     Tag.Status = tag_status,
                     Sex = sex,

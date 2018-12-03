@@ -1,19 +1,9 @@
----
-title: Animal Tracking Toolbox Quick Guide
-author: Vinay Udyawer, Ross Dwyer, Xavier Hoenner
-date: Nov 28, 2018
-output:
-  html_document:
-    toc: true
-    toc_float: true 
-    depth: 5
-    number_sections: false
-    theme: spacelab
-    highlight: pygments
----
 
-# Background
+Animal Tracking Toolbox Quick Guide
+===================================
 
+Background
+------------
 
 Passive telemetry studies use detection patterns of a tagged animal
 within a fixed array to understand movement patterns, habitat use and
@@ -73,17 +63,19 @@ tag detection data (either `IMOSdata` or `VEMCOdata`), associated tag metadata (
 also demonstrate how to run the function for a single tag as well as
 running the function for a large number of tags.
 
-# Installation
+Installation
+------------
 
 Currently the development version can be accessed from GitHub:
-```{r, include=TRUE, eval=FALSE}
+``` r
 install.packages("devtools")
 devtools::install_github("vinayudyawer/ATT")
 ```
 The Animal Tracking Toolbox will be eventually integrated into the 'VTrack' package.
 
 
-# Functions within the toolbox
+Functions within the toolbox
+------------
 
 The Animal Tracking Toolbox is comprised of five main functions that work in series:
 
@@ -103,15 +95,16 @@ In addition to these functions, there are additional functions to help plot dete
 
 <br>
 
-# Input data formats
+Input data formats
+------------
 
 Analysing passive telemetry data requires three sets of data: Tag detection data (refered to here as either `IMOSdata` or `VEMCOdata`, depending on data source); Tag metadata (`taginfo`); and Receiver metadata (`statinfo`). The ATT was developed to recognise field names from the IMOS ATF database and more generally from a VEMCO VUE database that is commonly used in the field of passive acoustic telemetry. These data formats are detailed below, and can be used as a guide to configure the tag detection data input if the VEMCO or IMOS ATF data formats are not used. The `taginfo` and `statinfo` data formats conforms to the metadata information stored on the IMOS ATF database, and similar formats should be used to store metadata information on animals tagged for analysing passive acoustic telemetry data.
 
 <br>
 
-## Tag detection data formats
+### Tag detection data formats
 
-### VEMCO input format (`VEMCOdata`)
+#### VEMCO input format (`VEMCOdata`)
 
 | Data field | Description | Required field? |
 |:---------- |:----------- |:--------------- |
@@ -127,8 +120,7 @@ Analysing passive telemetry data requires three sets of data: Tag detection data
 | Transmitter Serial |	Manufacturers serial number for deployed transmitter (e.g. 1126413) | No |
 
 <br><br>
-
-### IMOS ATF input format (`IMOSdata`)
+#### IMOS ATF input format (`IMOSdata`)
 
 | Data field | Description | Required field? |
 |:---------- |:----------- |:--------------- |
@@ -151,8 +143,7 @@ Analysing passive telemetry data requires three sets of data: Tag detection data
 | Detection_QC |	Composite detection flag indicating the likely validity of detections (1:valid detection, 2:probably valid detection, 3:probably bad detection, 4:bad detection) | No |
 
 <br><br>
-
-## Tag metadata input format (`taginfo`)
+### Tag metadata input format (`taginfo`)
 
 Tag metadata input format is based on IMOS ATF metadata structure
 
@@ -180,8 +171,7 @@ Tag metadata input format is based on IMOS ATF metadata structure
 | dual_sensor_tag |	Is the tag a dual sensor tag (TRUE/FALSE) | No |
 
 <br><br>
-
-## Receiver metadata input format (`statinfo`)
+### Receiver metadata input format (`statinfo`)
 
 Receiver metadata input format is based on IMOS ATF metadata structure
 
@@ -199,18 +189,17 @@ Receiver metadata input format is based on IMOS ATF metadata structure
 
 <br>
 
-# Usage
-
-
+Usage
+------------
 
 **Load the ATT library**
-```{r, eval=TRUE, message=FALSE}
+```ruby
 library(ATT)
 ```
 
 
 **Setup data for smooth functioning with other ATT functions**
-```{r, eval=TRUE, message=FALSE, warning=FALSE}
+```ruby
 ## Input example datasets
 data(IMOSdata)  ## Detection data exported from IMOS data repository
 data(VEMCOdata) ## Detection data exported from a VUE database
@@ -226,7 +215,7 @@ ATTdata<- setupData(Tag.Detections = IMOSdata,
 
 
 **Calculating detection metrics**
-```{r, eval=TRUE, message=FALSE, warning=FALSE}
+```ruby
 ## Calculate detecion metrics with monthly subsets chosen
 detSum<-detectionSummary(ATTdata,  
                          sub = "%Y-%m")
@@ -235,7 +224,7 @@ detSum<-detectionSummary(ATTdata,
 `detectionSummary()` outputs a list object with two components, `$Overall`: detection metrics for the full period of the tag and `$Subsetted`: detection metrics for weekly or monthly temporal subsets depending on the `sub` argument. 
 
 ```ruby
-head(detSum)
+detSum
 $Overall
 # A tibble: 11 x 10
     Tag.ID Transmitt… Sci.Name Sex   Bio   Number.of.Detec… Number.of.Stati… Days.Detected Days.at.Liberty
@@ -279,12 +268,12 @@ detSum$Subsetted
 
 
 **Create an abacus plot**
-```{r, eval=FALSE}
+```ruby
 abacusPlot(ATTdata)
 ```
 <img src="images/Fig3.png"/>
 
-```{r, eval=FALSE}
+```ruby
 ## Create a facetted abacus plot for individuals 77523274 and 77523147
 abacusPlot(ATTdata, 
            id=c("77523274","77523147"), 
@@ -294,7 +283,7 @@ abacusPlot(ATTdata,
 
 
 **Calculating dispersal metrics**
-```{r, eval=FALSE, message=FALSE, warning=FALSE}
+```ruby
 ## Calculate dispersal metrics
 dispSum<-dispersalSummary(ATTdata)
 ```
@@ -325,7 +314,7 @@ dispSum
 ```
 
 **Calculating activity space metrics**
-```{r, eval=TRUE, message=FALSE, warning=FALSE}
+```ruby
 ## First, estimate Short-term center of activities
 COAdata<-COA(ATTdata, 
              timestep = 60, ## timestep bin used to estimate centers of activity (in minutes)
@@ -395,7 +384,7 @@ COAdata$`77523307`
 
 
 Once COA estimates are estimated we can calculate activity space metrics:
-```{r, eval=FALSE, message=FALSE, warning=FALSE}
+```ruby
 ## Define projected Coordinate Reference System 
 # projected coordinate systems should signify distance in meters so the output area values are in sq meters
 # (here epsg:3577 refers to the GDA94 Australian Albers projection)
@@ -450,7 +439,7 @@ $Subsetted
 
 Other types of activity space metrics can also be calculated (e.g. fixed KUD using `type = "fKUD"` and Brownian Bridge KUD using `type = "BBKUD"`. Cumulative activity space metrics across temporal subsets can also be calculated using the `cumulative = TRUE` argument. 
 
-```{r, eval=FALSE, message=FALSE, warning=FALSE}
+```ruby
 ##*** Warning: the following might take a little while to run! ***##
 ## Estimate 50% and 95% fixed Kernel Utilisation Distribution ('fKUD') contour areas with cumulative metrics calculated
 fkud_est<-HRSummary(COAdata, 
@@ -464,15 +453,19 @@ fkud_est<-HRSummary(COAdata,
 
 MCP polygons and probability distributions associated with fKUD and BBKUDs can be stored when `storepoly = TRUE`. This outputs a list object with the two components, `$Overall`: a tibble data frame with activity space metrics for the full period of the tag and `$Subsetted`: a tibble data frame with activity space metrics for weekly or monthly temporal subsets depending on the `sub` argument, but also includes an additional `$Spatial.Objects` list that stores polygons (if calculating MCPs) or probability distribution raster (if calculating fKUD or BBKUD) for full tag life and temporal subsets.
 
-```{r, eval=FALSE, message=FALSE, warning=FALSE}
+```ruby
 ## Estimate 20%, 50% and 95% Brownian Bridge Kernel Utilisation Distribution ('BBKUD') contour areas and store polygons
 BBkud_est<-HRSummary(COAdata, 
                    projCRS=proj, 
                    type="BBKUD", 
                    cont=c(20,50,95), 
                    storepoly=TRUE)
-
+                   
 summary(BBkud_est)
+                Length Class  Mode
+Overall         12     tbl_df list
+Subsetted       13     tbl_df list
+Spatial.Objects 11     -none- list
 ```
 
 
@@ -492,217 +485,60 @@ The `$Spatial.Objects` list object in itself consists of a nested list. The exam
                                       |-----> `$X2013.07` : raster object for subset '2013-07' (July 2013)
 </pre>
 
-<br>
-<br>
-
-**Map activity space**
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
-BBkud_est<-readRDS("data/BBkud_example.RDS")
-```
-```{r, eval=TRUE}
-## Base plots using raster
-# Activity space for full tag life
-
+Each raster object or raster stack can be plotted and manipulated using the `raster` library
+```ruby
 library(raster)
 library(viridis) ## access more color palettes!
 
-## Select rasters of full KUDs for each individual into a single list
-fullstack <-
-  unlist(BBkud_est$Spatial.Objects)[grep("*_full", names(unlist(BBkud_est$Spatial.Objects)))]
-
-names(fullstack) <-
-  unlist(lapply(strsplit(names(fullstack), "[.]"), `[[`, 1))
-
 ## Lets plot the overall BBKUD for Tag.ID `77523307`
-fulltag <- fullstack$`77523307`
-values(fulltag)[values(fulltag) > 96] <- NA
-plot(fulltag, col = viridis(100), zlim = c(0, 100))
-points(station_latitude ~ station_longitude, statinfo, col = 2)
-points(Latitude.coa ~ Longitude.coa,
-       data = COAdata$`77523307`,
-       pch = 20,
-       col = 4,
-       cex = 0.5)
-contour(fulltag, add = TRUE, levels = c(50, 95))
+plot(BBkud_est
+     $ Spatial.Objects
+     $ `77523307`
+     $ BBKUD_full, 
+     col=viridis(10))
 ```
+<img src="images/Fig5.png"/>
 
 
-<br>
-<br>
-
-```{r, eval=TRUE, message=FALSE, warning=FALSE}
-# Monthly activity space for `77523307`
-## Select rasters of subsetted KUDs for each individual into a single list
-substack <-
-  unlist(BBkud_est$Spatial.Objects)[grep("*_sub", names(unlist(BBkud_est$Spatial.Objects)))]
-
-## Plot monthly KUD for tag `77523307`
-library(rasterVis)
-tag_subset <-
-  disaggregate(substack$`77523307.BBKUD_sub`,
-  fact = 3,
-  method = 'bilinear')
-  values(tag_subset)[values(tag_subset) > 96] <- NA
-  names(tag_subset) <-
-  format(ymd(paste0(substring(
-  names(tag_subset), 2
-  ), ".01")), "%B %Y")
-
-tag.det<-
-  COAdata$`77523307` %>%
-  mutate(sub = format(TimeStep.coa, "%B.%Y"))
-
-coa.dat<-
-  tag.det %>%
-  dplyr::select(Longitude.coa,Latitude.coa,sub) %>%
-  split(.$sub)
-
-rasterVis::levelplot(tag_subset,
-          names.attr = sub("[.]", " ", names(tag_subset)),
-          par.settings=viridisTheme,
-          panel = function(..., at, contour = FALSE){
-            panel.levelplot(..., at = at, contour = contour)
-            panel.contourplot(..., at = c(50, 95), contour = TRUE, lty=1, col.regions="transparent")
-            # panel.contourplot(..., at = 50, contour = TRUE, lty=1)
-            # panel.contourplot(..., at = 95, contour = TRUE, lty=2)
-            panel.points(
-              coa.dat[[panel.number()]],
-              pch=20,
-              cex=0.2,
-              col= 4)
-            }
-          )
-
+```ruby
+## We can also plot the raster stack for all temporal subsets for Tag.ID `77523307`
+plot(BBkud_est
+     $ Spatial.Objects
+     $ `77523307`
+     $ BBKUD_sub, 
+     col=viridis(10))
 ```
+<img src="images/Fig6.png"/>
 
-**Interactive maps with leaflet**
-```{r, eval=TRUE, message=FALSE, warning=FALSE}
-library(leaflet)
 
-## Full KUD for all tagged animals
-fullmap <- leaflet() %>%
-  addProviderTiles(providers$Esri.WorldImagery)
-
-for (i in 1:length(fullstack)) {
-  tempras<-disaggregate(fullstack[[i]], fact=3, method='bilinear')
-  values(tempras)[values(tempras) >95] <-NA
-  fullmap <- 
-    fullmap %>% 
-    addRasterImage(tempras, opacity = 0.5, group = names(fullstack)[i])
-}
-
-coa.detections<-
-  do.call(rbind, COAdata) %>%
-  filter(Tag.ID %in% names(fullstack))
-
-fullmap <- 
-  fullmap %>%
-  addCircleMarkers(lng = coa.detections$Longitude.coa, lat = coa.detections$Latitude.coa,
-                   color = "red", radius = 1, weight=1, group = coa.detections$Tag.ID) %>%
-  addCircleMarkers(lng = statinfo$station_longitude, lat = statinfo$station_latitude,
-                   fill = F, color = "white", radius = 4, weight = 2, group = "Receiver Stations") %>%
-  addMeasure(position = "bottomleft",
-             primaryLengthUnit = "meters",
-             primaryAreaUnit = "sqmeters") %>%
-  addLayersControl(
-    baseGroups = coa.detections$Tag.ID,
-    overlayGroups = "Receiver Stations",
-    options = layersControlOptions(collapsed = FALSE)
-  )
-
-fullmap
+```ruby
+## If we want to see what our animal is doing in April 2014
+plot(BBkud_est
+     $ Spatial.Objects
+     $ `77523307`
+     $ BBKUD_sub
+     $ X2014.04, 
+     col=viridis(10))
 ```
+<img src="images/Fig7.png"/>
 
-```{r, eval=TRUE, message=FALSE, warning=FALSE}
-## Monthly KUD for tag `77523307`
-submap<- 
-  leaflet() %>%
-  addProviderTiles(providers$Esri.WorldImagery)
 
-for (i in 1:length(names(tag_subset))) {
-  submap <- 
-    submap %>% 
-    addRasterImage(tag_subset[[i]], opacity = 0.5, group = gsub("[.]", " ", names(tag_subset)[i]))
-} 
-
-submap<- 
-  submap %>%
-  addCircleMarkers(lng = tag.det$Longitude.coa, lat = tag.det$Latitude.coa,
-                   color = "red", radius = 1, weight=1, group = gsub("[.]", " ", tag.det$sub)) %>%
-  addCircleMarkers(lng = statinfo$station_longitude, lat = statinfo$station_latitude,
-                   fill = F, color = "white", radius = 4, weight=2, group = "Receiver Stations") %>%
-  addLayersControl(
-    baseGroups = gsub("[.]", " ", names(tag_subset)),
-    overlayGroups = "Receiver Stations",
-    options = layersControlOptions(collapsed = FALSE)
-  )
-
-submap
-
-```
-
-**Plotting and exploring monthly KUD values using 'plotly'**
-
-```{r, eval=TRUE, message=FALSE, warning=FALSE}
-## ------------------------------------
-## Monthly breakdown of KUDs
-## Summary plots of KUDs over time
-
-library(plotly)
-library(lubridate)
-## Interactive plotly
-datly<- 
-  BBkud_est$Subsetted %>%
-  filter(Tag.ID %in% names(fullstack)) %>%
-  mutate(Date = lubridate::ymd(paste0(subset,"-01")),
-         ActivitySpace_km2 = BBKUD.95/(10^6))
-
-p <- plot_ly(
-  type = 'scatter',
-  mode = "lines+markers",
-  x = filter(datly, Tag.ID %in% unique(datly$Tag.ID)[1])$Date,
-  y = filter(datly, Tag.ID %in% unique(datly$Tag.ID)[1])$ActivitySpace_km2,
-  name = unique(datly$Tag.ID)[1])
-
-for (id in unique(datly$Tag.ID)[-1]) {
-  p <- p %>% 
-    add_trace(x = filter(datly, Tag.ID %in% id)$Date,
-              y = filter(datly, Tag.ID %in% id)$ActivitySpace_km2,
-              name = id, mode="lines+markers", visible = FALSE)}
-
-p <- p %>%
-  layout(
-    title = "Monthly extent of activity Space",
-    xaxis = list(title = "Date"),
-    yaxis = list(title = "Extent of Activity Space (km2)", rangemode = "tozero"),
-    updatemenus = list(
-      list(
-        type="dropdown",
-        y = 1,
-        ## Add all buttons at once
-        buttons = lapply(unique(datly$Tag.ID), FUN=function(id) {
-          list(method="restyle", 
-               args = list("visible", unique(datly$Tag.ID) == id),
-               label = id)}))))
-p
-```
 
 ***More functions to visualise standardised metrics coming soon!!***
 
 <br>
 <br>
 
-
-# Authors
-
+Authors
+---------------
 Vinay Udyawer <br> <v.udyawer@aims.gov.au> <br> Australian Institute of Marine Science
 
 Ross Dwyer <br> <ross.dwyer@uq.edu.au> <br> University of Queensland
 
 Xavier Hoenner <br> <xavier.hoenner@utas.edu.au> <br> Australian Ocean Data Network
 
-<br>
-<br>
 
-**Vignette version**
-1.0.2 (28 Nov 2018)
+Current version
+---------------
+
+1.0.1 (18 May 2018)

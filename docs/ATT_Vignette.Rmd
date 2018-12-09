@@ -5,10 +5,11 @@ date: Nov 28, 2018
 output:
   html_document:
     toc: true
-    toc_float: true 
+    toc_float:
+      collapsed: false
     depth: 5
     number_sections: false
-    theme: spacelab
+    theme: paper
     highlight: pygments
 ---
 
@@ -35,7 +36,6 @@ commonly used metrics.
 <sub>Figure 1. Visual summary of workflow to calculate standardised metrics using the Animal Tracking Toolbox.</sub>
 
 <br>
-<br>
 
 The Animal Tracking Toolbox (ATT) is a collection of functions created
 in the R statistical environment (R Development Core Team 2018) that
@@ -49,12 +49,10 @@ visualise standardised metrics of movement and activity space within and
 between species tracked at multiple locations.
 
 <br>
-<br>
 
 <img src="images/Fig2.png"/>
 <sub>Figure 2. Overall activity space metric plots for multiple species tagged at multiple locations (a) Yellowfin Bream (n=1), (b) Yellowtail Kingfish (n=1), (c) Grey Reef Shark (n=1) and (d) Bull Shark (n=1) output using the ATT. Coloured points represent Centres of Activity (60 min time steps) with darker shapes representing core activity space (50% contour of Brownian bridge kernel utilisation distribution; BBKUD) and lighter shapes representing the extent of activity space (95% contour of BBKUD). Black polygons represent overall Minimum Convex Polygons from detection data. Open circles represent locations of VR2W receivers deployed within the IMOS ATF infrastructure and associated research installations.</sub>
 
-<br>
 <br>
 
 The ATT was developed to preprocess and calculate standardised metrics
@@ -128,7 +126,7 @@ Analysing passive telemetry data requires three sets of data: Tag detection data
 | Transmitter Name |	Ping ID of transmitter deployed (e.g. 14503) | No |
 | Transmitter Serial |	Manufacturers serial number for deployed transmitter (e.g. 1126413) | No |
 
-<br><br>
+<br>
 
 ### IMOS ATF input format (`IMOSdata`)
 
@@ -152,7 +150,7 @@ Analysing passive telemetry data requires three sets of data: Tag detection data
 | ReleaseLocation_QC |	Tag release lat/long coordinates within expert distribution area and/or within 500 km from first detection? (1:yes, 2:no) | No |
 | Detection_QC |	Composite detection flag indicating the likely validity of detections (1:valid detection, 2:probably valid detection, 3:probably bad detection, 4:bad detection) | No |
 
-<br><br>
+<br>
 
 ## Tag metadata input format (`taginfo`)
 
@@ -181,7 +179,7 @@ Tag metadata input format is based on IMOS ATF metadata structure
 | tag_serial_number |	Manufacturers serial number for deployed transmitter (e.g. 1126413) | No |
 | dual_sensor_tag |	Is the tag a dual sensor tag (TRUE/FALSE) | No |
 
-<br><br>
+<br>
 
 ## Receiver metadata input format (`statinfo`)
 
@@ -203,15 +201,15 @@ Receiver metadata input format is based on IMOS ATF metadata structure
 
 # Usage
 
-
-
-**Load the ATT library**
-```{r, eval=TRUE, message=FALSE}
+## Load the VTrack library
+```{r, eval=FALSE, message=FALSE}
+library(VTrack)
+```
+```{r, eval=TRUE, message=FALSE, include=FALSE}
 library(ATT)
 ```
 
-
-**Setup data for smooth functioning with other ATT functions**
+## Setup data for smooth functioning with other ATT functions
 ```{r, eval=TRUE, message=FALSE, warning=FALSE}
 ## Input example datasets
 data(IMOSdata)  ## Detection data exported from IMOS data repository
@@ -227,7 +225,7 @@ ATTdata<- setupData(Tag.Detections = IMOSdata,
 ```
 
 
-**Calculating detection metrics**
+## Calculating detection metrics
 ```{r, eval=TRUE, message=FALSE, warning=FALSE}
 ## Calculate detecion metrics with monthly subsets chosen
 detSum<-detectionSummary(ATTdata,  
@@ -248,27 +246,26 @@ detSum$Subsetted
 ```
 <br>
 
-**Create an abacus plot**
-```{r, eval=TRUE}
+## Create an abacus plot
+```{r, eval=FALSE}
 abacusPlot(ATTdata)
 ```
-
+<img src="images/Fig3.png"/>
 <br>
-```{r, eval=TRUE}
+```{r, eval=FALSE}
 ## Create a facetted abacus plot for individuals 77523274 and 77523147
 abacusPlot(ATTdata, 
            id=c("77523274","77523147"), 
            facet=TRUE)
 ```
-
+<img src="images/Fig4.png"/>
 <br>
 
-**Calculating dispersal metrics**
+## Calculating dispersal metrics
 ```{r, echo=FALSE, results='hide', fig.keep='all', message = FALSE}
 ## Calculate dispersal metrics
 dispSum<-dispersalSummary(ATTdata)
 ```
-<br>
 
 `dispersalSummary()` outputs a tibble data frame object with step distances and step bearings calculated for each detection. The number of rows will be equal to the raw detection data, therefore it may take longer to process dispersal metrics for a large number of animals or for large datasets.
 
@@ -278,7 +275,7 @@ dispSum
 ```
 <br>
 
-**Calculating activity space metrics**
+## Calculating activity space metrics
 ```{r, eval=TRUE, message=FALSE, warning=FALSE}
 ## First, estimate Short-term center of activities
 COAdata<-COA(ATTdata, 
@@ -293,7 +290,6 @@ COAdata<-COA(ATTdata,
 COAdata[1:2]
 
 ```
-<br>
 
 If you need to access COA estimates for a single indiviual you can access them by specifying which 'Tag.ID' you are looking for, for example if we want the COA estimates for individual `77523307`:
 
@@ -340,7 +336,7 @@ fkud_est<-HRSummary(COAdata,
 ```
 <br>
 
-**Storing spatial data associated with activity space metrics**
+## Storing spatial data associated with activity space metrics
 
 MCP polygons and probability distributions associated with fKUD and BBKUDs can be stored when `storepoly = TRUE`. This outputs a list object with the two components, `$Overall`: a tibble data frame with activity space metrics for the full period of the tag and `$Subsetted`: a tibble data frame with activity space metrics for weekly or monthly temporal subsets depending on the `sub` argument, but also includes an additional `$Spatial.Objects` list that stores polygons (if calculating MCPs) or probability distribution raster (if calculating fKUD or BBKUD) for full tag life and temporal subsets.
 
@@ -358,7 +354,7 @@ summary(BBkud_est)
 
 The `$Spatial.Objects` list object in itself consists of a nested list. The example object above, `BBkud_est` is structured in this way:
 
-```ruby
+<pre>
 `BBkud_est`
     |---> `$Overall`    : tibble data frame with activity space metrics for full tag life
     |---> `$Subsetted`  : tibble data frame with activity space metrics for each temporal subset
@@ -370,12 +366,11 @@ The `$Spatial.Objects` list object in itself consists of a nested list. The exam
                                       |-----> `$X2013.05` : raster object for subset '2013-05' (May 2013)
                                       |-----> `$X2013.06` : raster object for subset '2013-06' (June 2013)
                                       |-----> `$X2013.07` : raster object for subset '2013-07' (July 2013)
-```
+</pre>
 
 <br>
-<br>
 
-**Map activity space**
+## Map activity space
 
 ```{r, eval=TRUE, message=FALSE, warning=FALSE}
 ## Base plots using raster
@@ -447,10 +442,6 @@ rasterVis::levelplot(tag_subset,
                          pch = 20,
                          cex = 0.2,
                          col = 4)
-            panel.points(statinfo[c("station_longitude", "station_latitude")],
-                         pch = 3,
-                         cex = 0.3,
-                         col = 2)
             }
           )
 
@@ -458,7 +449,7 @@ rasterVis::levelplot(tag_subset,
 
 <br>
 
-**Interactive maps with leaflet**
+## Interactive maps with leaflet
 ```{r, eval=TRUE, message=FALSE, warning=FALSE}
 library(leaflet)
 
@@ -524,7 +515,7 @@ submap
 
 ```
 
-**Plotting and exploring monthly KUD values using 'plotly'**
+## Plotting and exploring monthly KUD values using `plotly`
 
 ```{r, eval=TRUE, message=FALSE, warning=FALSE}
 ## ------------------------------------

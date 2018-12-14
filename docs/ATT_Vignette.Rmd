@@ -262,6 +262,12 @@ abacusPlot(ATTdata,
 <br>
 
 ## Calculating dispersal metrics
+
+```{r, eval=FALSE}
+## Calculate dispersal metrics
+dispSum<-dispersalSummary(ATTdata)
+```
+
 ```{r, echo=FALSE, results='hide', fig.keep='all', message = FALSE}
 ## Calculate dispersal metrics
 dispSum<-dispersalSummary(ATTdata)
@@ -282,7 +288,6 @@ COAdata<-COA(ATTdata,
              timestep = 60, ## timestep bin used to estimate centers of activity (in minutes)
              split = TRUE)
 ```
-<br>
 
 `COA()` produces a single tibble data frame with centers of activity positions estimated for each timestep bin when `split = FALSE`; and a list object with centers of activity positions for each individual when `split = TRUE`.
 
@@ -300,7 +305,7 @@ COAdata$`77523307`
 <br>
 
 Once COA estimates are estimated we can calculate activity space metrics:
-```{r, echo=FALSE, results='hide', fig.keep='all', message = FALSE}
+```{r, eval = FALSE}
 ## Define projected Coordinate Reference System 
 # projected coordinate systems should signify distance in meters so the output area values are in sq meters
 # (here epsg:3577 refers to the GDA94 Australian Albers projection)
@@ -315,6 +320,20 @@ mcp_est <- HRSummary(COAdata,
                      sub = "%Y-%m")
 ```
 
+```{r, echo=FALSE, results='hide', fig.keep='all', message = FALSE, warnings = FALSE}
+## Define projected Coordinate Reference System 
+# projected coordinate systems should signify distance in meters so the output area values are in sq meters
+# (here epsg:3577 refers to the GDA94 Australian Albers projection)
+proj<-CRS("+init=epsg:3577")
+
+## HRSummary() requires calculation of COAs first
+## Estimate 100% Maximum Convex Polygon (MCP) areas
+mcp_est <- HRSummary(COAdata, 
+                     projCRS=proj, 
+                     type="MCP", 
+                     cont=100,
+                     sub = "%Y-%m")
+```
 `HRSummary()` outputs a list object with two components, `$Overall`: activity space metrics for the full period of the tag and `$Subsetted`: activity space metrics for weekly or monthly temporal subsets depending on the `sub` argument.
 
 ```{r, warning=FALSE, message=FALSE}
@@ -347,7 +366,8 @@ BBkud_est<-HRSummary(COAdata,
                    type="BBKUD", 
                    cont=c(20,50,95), 
                    storepoly=TRUE)
-
+```
+```{r, eval = TRUE}
 summary(BBkud_est)
 ```
 <br>

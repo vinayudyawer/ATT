@@ -16,20 +16,7 @@ data("crocs")
 dets <-
   crocs %>%
   as_tibble() %>%
-  left_join(array, by=c("Receiver.S.N" = "LOCATION")) %>%
-  mutate(Date.Time = ymd_hms(Date.Time)) %>%
-  arrange(ID, Date.Time) %>%
-  st_as_sf(coords=c("LONGITUDE", "LATITUDE"), crs=4326) %>%
-  group_by(ID) %>%
-  mutate(Distance.between.fixes.meters = st_distance(geometry[lag(row_number())], geometry, by_element=T)) %>%
-  as_Spatial() %>% as_tibble() %>%
-  rename(LONGITUDE = coords.x1,
-         LATITUDE = coords.x2)
-
-detections <-
-  dets %>%
-  filter(Distance.between.fixes.meters > 0) %>%
-  dplyr::select(-c(RADIUS, LONGITUDE, LATITUDE))
+  mutate(Date.Time = ymd_hms(Date.Time))
 
 trajfun <-
   function(detections, array){
@@ -66,7 +53,7 @@ trajfun <-
   }
 
 traj <-
-  detections %>%
+  dets %>%
   group_by(ID) %>%
   do(trajfun(., array)) %>%
   filter(!duplicated(Date.Time, ID))

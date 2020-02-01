@@ -1,6 +1,6 @@
-# Animals-in-Motion-2018
-This contains the data and documents for the Animals in Motion 2018 R workshop on Stradbroke Island in February 2018.
+# Animal Tracking Toolbox repository
+This contains the documentation and vignettes for the Animal Tracking Toolbox that has now been migrated to the existing VTrack package: www.github.com/rossdwyer/VTrack
 
-Workthough the workshop by following this link:
-https://vinayudyawer.github.io/Animals-in-Motion-2018/Documents/OCS2018.html
+A vignette for the toolbox can be found here: https://vinayudyawer.github.io/ATT/docs/ATT_Vignette.html 
+
 

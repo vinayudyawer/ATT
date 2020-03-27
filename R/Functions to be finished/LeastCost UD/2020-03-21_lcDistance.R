@@ -12,7 +12,7 @@ lcDistance <- function(ATTdata, cost = NULL, trans = NULL, utm_epsg, ll_epsg = 4
   ##                Tag.Metadata (output from setupData function in VTrack)
   ## cost           cost raster, with land pixel values of 1000 and sea as 1, if none provided
   ##                this is extracted and calculated using polygon downloaded from 'osmdata' package
-  ## trans          Transition layer used to calculate least cost paths. Providing this will make the estimation faster for 
+  ## trans          Transition layer used to calculate least cost paths. Providing this will make the estimation faster for
   ##                larger datasets. Bypasses transition matrix calculation every time.
   ## utm_epsg       EPSG code for CRS object with projected coordinate reference system (units m)
   ## ll_epsg        EPSG code for CRS object with unprojected coordinate reference system (units deg) [default 4326]
@@ -43,7 +43,7 @@ lcDistance <- function(ATTdata, cost = NULL, trans = NULL, utm_epsg, ll_epsg = 4
   ## Setup input tagdata; convert to spatial object and transform to projection
   spdata_ll <-
     combdata %>%
-    filter(!is.na(Station.Longitude)) %>% 
+    filter(!is.na(Station.Longitude)) %>%
     mutate(step = 0:(nrow(.)-1)) %>%
     st_as_sf(coords = c("Longitude", "Latitude"), crs = ll_epsg)
 
@@ -58,66 +58,66 @@ lcDistance <- function(ATTdata, cost = NULL, trans = NULL, utm_epsg, ll_epsg = 4
       cost.in_utm <- raster::projectRaster(cost, crs=utm, method = "ngb")
       cost.ras <- resample(cost.in_utm, raster(extent(cost.in_utm), res = cost.res), method = "ngb")
       projection(cost.ras) <- utm
-      
+
       ## Produce transition matrices, and correct for distortion
       tryCatch({
         message("\n- Calculating transition matrices for least cost path estimation")
         trCost <- transition(1/cost.ras, mean, directions = directions)
         trCost <- geoCorrection(trCost, type = "c")
       }, error=function(e){message("\nError in calculating Transition layer")})
-      
+
     } else {
       message("\n- No cost or transition layer provided. Downloading coastline data from Open Street Map server")
       require("osmdata")
       tryCatch({
-        
+
         bb <- extent(statinfo) + 0.1
-        
+
         polydat <-
           opq(bbox = bb[c(1,3,2,4)]) %>%
           add_osm_feature(key = 'natural', value = 'coastline') %>%
           osmdata_sf
-        
+
         islands <-
           polydat$osm_polygons %>%
           rowid_to_column() %>%
           mutate(area = st_area(geometry)) %>%
           dplyr::select(rowid, area)
-        
+
         coastline <- polydat$osm_lines %>% st_union %>% st_line_merge
         pol <- st_as_sfc(st_bbox(coastline))
         coastpoly <- lwgeom::st_split(st_geometry(pol), st_geometry(coastline))
-        
+
         pol_list <- list()
         for(n in 1:length(coastpoly[[1]])){
           pol_list[[n]] <- st_cast(coastpoly[[1]][n][[1]], 'POLYGON') %>% st_geometry() %>% st_sf()
           st_crs(pol_list[[n]]) <- 4326
         }
-        
+
         land <-
           st_as_sf(data.table::rbindlist(pol_list)) %>%
           rowid_to_column() %>%
           mutate(area = st_area(geometry)) %>%
           filter(area %in% max(area))
-        
+
         studypol <- st_as_sf(data.table::rbindlist(list(land, islands), use.names = T))
-        
+
         poly <-
           studypol %>%
           st_transform(utm_epsg) %>%
           st_crop(extent(statinfo %>% st_transform(utm_epsg)) + 5000)
-        
+
         cost.ras<-rasterize(poly, raster(extent(statinfo %>% st_transform(utm_epsg)) + 5000, res = cost.res), 1000)
         cost.ras[is.na(values(cost.ras))] <- 1
         projection(cost.ras) <- utm
-        
+
         ## Produce transition matrices, and correct for distortion
         tryCatch({
           message("\n- Calculating transition matrices for least cost path estimation")
           trCost <- transition(1/cost.ras, mean, directions = directions)
           trCost <- geoCorrection(trCost, type = "c")
         }, error=function(e){message("\nError in calculating Transition layer")})
-        
+
       }, error=function(e){message("\nError: no land in sight!\nConsider adding your own cost layer")})
       }
     } else {
@@ -235,12 +235,12 @@ plot.lcUD <- function(UDobj, ...){
 
   UDras <- UDobj$UD.raster
   UDras[raster::values(UDras) > 99] <- NA
-  # coadat <- 
-  #   UDobj$coa.data %>% 
+  # coadat <-
+  #   UDobj$coa.data %>%
   #   st_as_sf(coords = c("Longitude.coa", "Latitude.coa"), crs = 4326)
 
   m <-
-    mapview(UDras, layer = "Kernel Utilisation Distribution", homebutton = F, na.color = "transparent", ...) +
+    mapview(UDras, layer = "Utilisation Distribution", homebutton = F, na.color = "transparent", ...) +
     # mapview(coadat, layer = "Center of Activity positions", col.regions = "white", alpha = 0, cex = 2, legend = F, homebutton = F) +
     mapview(spdat, alpha = 0, layer = "Detection data", col.regions = "red", cex = "Number of Detections", legend = F, homebutton = F) +
     mapview(st_geometry(UDobj$lc.traj), layer = "Least Cost Path Trajectories", legend = F, homebutton = F)
@@ -253,13 +253,13 @@ plot.lcUD <- function(UDobj, ...){
 ## ************************************************************************************************************************************* ##
 ## Function to generate least cost trajectories
 lcTraj <- function(ATTdata, cost = NULL, utm_epsg, ll_epsg = 4326, cost.res = 50, directions = 16, ...){
-  
+
   ## load required libraries and set up CRSs
-  sapply(c("lubridate","sf","dplyr","raster","gdistance","spatstat","maptools","rgeos","VTrack", "data.table", "lwgeom"), require, 
+  sapply(c("lubridate","sf","dplyr","raster","gdistance","spatstat","maptools","rgeos","VTrack", "data.table", "lwgeom"), require,
          character.only=TRUE, warn.conflicts = F, quietly = T)
   ll <- CRS(paste0("+init=epsg:", ll_epsg))
   utm <- CRS(paste0("+init=epsg:", utm_epsg))
-  
+
   combdata <-
     ATTdata$Tag.Detections %>%
     dplyr::select(-c(Longitude, Latitude)) %>%
@@ -268,82 +268,82 @@ lcTraj <- function(ATTdata, cost = NULL, utm_epsg, ll_epsg = 4326, cost.res = 50
               by=c("Station.Name", "Receiver")) %>%
     rename(Longitude = Station.Longitude,
            Latitude = Station.Latitude)
-  
+
   statinfo <-
     ATTdata$Station.Information %>%
     st_as_sf(coords=c("Station.Longitude", "Station.Latitude"), crs = ll_epsg)
-  
+
   ## Setup input tagdata; convert to spatial object and transform to projection
   spdata_ll <-
     combdata %>%
     mutate(step = 0:(nrow(.)-1)) %>%
     st_as_sf(coords = c("Longitude", "Latitude"), crs = ll_epsg)
-  
+
   spdata_utm <-
     spdata_ll %>%
     st_transform(crs = utm_epsg)
-  
+
   ## Extract landmass to calculate cost raster if not provided
   if(is.null(cost)){
     message("- No cost layer provided. Downloading coastline data from Open Street Map server")
     require("osmdata")
     tryCatch({
-      
+
       bb <- extent(statinfo) + 0.1
-      
+
       polydat <-
         opq(bbox = bb[c(1,3,2,4)]) %>%
         add_osm_feature(key = 'natural', value = 'coastline') %>%
         osmdata_sf
-      
+
       islands <-
         polydat$osm_polygons %>%
         rowid_to_column() %>%
         mutate(area = st_area(geometry)) %>%
         dplyr::select(rowid, area)
-      
+
       coastline <- polydat$osm_lines %>% st_union %>% st_line_merge
       pol <- st_as_sfc(st_bbox(coastline))
       coastpoly <- lwgeom::st_split(st_geometry(pol), st_geometry(coastline))
-      
+
       pol_list <- list()
       for(n in 1:length(coastpoly[[1]])){
         pol_list[[n]] <- st_cast(coastpoly[[1]][n][[1]], 'POLYGON') %>% st_geometry() %>% st_sf()
         st_crs(pol_list[[n]]) <- 4326
       }
-      
+
       land <-
         st_as_sf(data.table::rbindlist(pol_list)) %>%
         rowid_to_column() %>%
         mutate(area = st_area(geometry)) %>%
         filter(area %in% max(area))
-      
+
       studypol <- st_as_sf(data.table::rbindlist(list(land, islands), use.names = T))
-      
-      
+
+
       poly <-
         studypol %>%
         st_transform(utm_epsg) %>%
         st_crop(extent(statinfo %>% st_transform(utm_epsg)) + 5000)
-      
+
       cost.ras<-rasterize(poly, raster(extent(statinfo %>% st_transform(utm_epsg)) + 5000, res = cost.res), 1000)
       cost.ras[is.na(values(cost.ras))] <- 1
       projection(cost.ras) <- utm
-      
+
     }, error=function(e){message("Error: no land in sight!\nConsider adding your own cost layer")})
   }else{
     cost.in_utm <- raster::projectRaster(cost, crs = utm, method = "ngb")
     cost.ras <- resample(cost.in_utm, raster(extent(cost.in_utm), res = cost.res), method = "ngb")
     projection(cost.ras) <- utm
   }
-  
+
   ## Produce transition matrices, and correct for distortion
   tryCatch({
     message("- Calculating transition matrices for least cost path estimation")
     trCost <- transition(1/cost.ras, mean, directions = directions)
     trCost <- geoCorrection(trCost, type = "c")
   }, error=function(e){message("Error in calculating Transition layer")})
-  
+
   ## Construct shortest path trajectories between sequence of detection steps
   outdat <-
     spdata_ll %>%
@@ -352,17 +352,17 @@ lcTraj <- function(ATTdata, cost = NULL, utm_epsg, ll_epsg = 4326, cost.res = 50
     rename(Longitude = coords.x1, Latitude = coords.x2) %>%
     mutate(Distance_m = NA) %>%
     dplyr::select(-step)
-  
+
   tryCatch({
     message("- Constructing least cost path trajectories between consecutive detections")
     traj<-list()
     for(i in 1:max(spdata_utm$step)){
       if(i %in% 1){pb <- txtProgressBar(min=1, max=max(spdata_utm$step), style=3)}
-      
+
       stepdat <- spdata_utm %>% filter(step %in% c(i-1, i))
       origin <- stepdat %>% slice(1) %>% as_Spatial
       goal <- stepdat %>% slice(n()) %>% as_Spatial
-      
+
       if (nrow(distinct(stepdat)) > 1){
         traj[[i]]<-shortestPath(trCost, origin, goal, output = "SpatialLines")
         outdat$Distance_m[i+1]<-as.numeric(costDistance(trCost, origin, goal))
@@ -372,18 +372,18 @@ lcTraj <- function(ATTdata, cost = NULL, utm_epsg, ll_epsg = 4326, cost.res = 50
       }
       setTxtProgressBar(pb, i)
     }
-    
+
     traj_clean <- Filter(Negate(is.null), traj)
     trajectory_utm <- do.call(rbind, traj_clean)
     trajectory_ll <- st_as_sf(trajectory_utm) %>% st_transform(ll_epsg)
   }, error=function(e){message("\nError in calculating least cost path trajectories")})
-  
+
   ## return list output with step distances and spatial trajectory file
   out<-list(tagdata = outdat,
             lc.traj = trajectory_ll,
             cost.raster = projectRaster(cost.ras, crs = ll, method = "ngb"))
-  
-  
+
+
   return(out)
 }
 ## ************************************************************************************************************************************* ##

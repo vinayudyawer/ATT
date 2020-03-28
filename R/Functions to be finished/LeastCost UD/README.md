@@ -110,7 +110,8 @@ The lcDistance function:
 
 <br>
 The detection data needs to be in a ATTdata object format (from VTrack), so it can recognise variables correctly. At the moment, the function only works for a single individual at a time. More development is required to make this run across multiple tags.
-You can supply your own cost layer as calculated above. But if you dont have it, the function can extract coastline data from the OpenStreetMap server and calculate a rough cost layer. The OSM server may not have a very accurate coastline sometimes, so check to see if you can find a more accurate or updated polygon for land in your study site.
+
+You can supply your own cost or transition layers as calculated above. But if you dont have it, the function can extract coastline data from the OpenStreetMap server and calculate a rough cost layer. The OSM server may not have a very accurate coastline sometimes, so check to see if you can find a more accurate or updated polygon for land in your study site.
 
 ```{r}
 least.costUD <- lcDistance(ATTdata = ATTdata,  ## Station information, tagdata and taginfo data all in one ATTdata object

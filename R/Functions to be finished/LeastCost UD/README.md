@@ -17,7 +17,7 @@ library(mapview)
 ## Installing VTrack from github if you dont have the recent version
 # devtools::install_github("rossdwyer/VTrack")
 library(VTrack)
-source("2020-03-21_lcDistance.R")
+source("2020-03-28_lcDistance.R")
 ```
 <br>
 
@@ -25,10 +25,10 @@ Input example datasets
 ---------
 
 ```r
-map <- readRDS("Example_map.RDS")
-statinfo <- readRDS("Example_statinfo.RDS")
-tagdata <- readRDS("Example_tagdata.RDS")
-taginfo <- readRDS("Example_taginfo.RDS")
+map <- readRDS("data/Example_map.RDS")
+statinfo <- readRDS("data/Example_statinfo.RDS")
+tagdata <- readRDS("data/Example_tagdata.RDS")
+taginfo <- readRDS("data/Example_taginfo.RDS")
 
 ATTdata <- setupData(Tag.Detections = tagdata, 
                      Tag.Metadata = taginfo,
@@ -80,6 +80,30 @@ cost.raster %>%
 
 <br>
 
+```{r}
+## Create a transition layer to speed up UD estimation if using lots of individuals in the same study site
+cost.in_utm <- projectRaster(cost.raster, crs = CRS("+init=epsg:3577"), method = "ngb")
+cost.ras <- resample(cost.in_utm, raster(extent(cost.in_utm), res = 50), method = "ngb")
+projection(cost.ras) <- CRS("+init=epsg:3577")
+
+trCost <- transition(1/cost.ras, mean, directions = 16)
+trans.utm <- geoCorrection(trCost, type = "c")
+
+trans.utm %>% 
+  raster() %>% 
+  rasterToPoints(.) %>%
+  as_tibble() %>% 
+  ggplot() +
+  geom_raster(aes(x = x, y = y, fill = layer)) +
+  coord_fixed(expand = 0) +
+  theme_bw()
+```
+<img src="lcDistance_Vignette_files/figure-html/Fig3.png"/>
+
+<br><br>
+
+
+
 The lcDistance function:
 ---------
 
@@ -88,14 +112,15 @@ The detection data needs to be in a ATTdata object format (from VTrack), so it c
 You can supply your own cost layer as calculated above. But if you dont have it, the function can extract coastline data from the OpenStreetMap server and calculate a rough cost layer. The OSM server may not have a very accurate coastline sometimes, so check to see if you can find a more accurate or updated polygon for land in your study site.
 
 ```{r}
-least.costUD <- lcDistance(ATTdata = ATTdata, ## Station information, tagdata and taginfo data all in one ATTdata object
-                           cost = cost.raster,## Cost raster for your study site. If NULL it finds coastline data from OSM server
-                           ll_epsg = 4326,    ## EPSG code for the raw data (in lat/long)
-                           utm_epsg = 3577,   ## EPSG code for the Projected CRS for your study site (in meters)
-                           timestep = 60,     ## Timestep in minutes for COA estimation (see COA() function for details of timestep)
-                           h = 100,           ## Smoothing parameter for UD estimate
-                           cost.res = 50,     ## Resolution of cost raster used for least cost path estimation
-                           UDgrid = 20)       ## Resolution of final UD raster file in meters
+least.costUD <- lcDistance(ATTdata = ATTdata,  ## Station information, tagdata and taginfo data all in one ATTdata object
+                           trans = trans.utm,  ## Transition layer, function will use this over cost raster if provided to save time
+                           cost = cost.raster, ## Cost raster for your study site. If NULL it finds coastline data from OSM server
+                           ll_epsg = 4326,     ## EPSG code for the raw data (in lat/long)
+                           utm_epsg = 3577,    ## EPSG code for the Projected CRS for your study site (in meters)
+                           timestep = 60,      ## Timestep in minutes for COA estimation (see COA() function for details of timestep)
+                           h = 100,            ## Smoothing parameter for UD estimate
+                           cost.res = 50,      ## Resolution of cost raster used for least cost path estimation
+                           UDgrid = 20)        ## Resolution of final UD raster file in meters
 ```
 
 The output file is a list of all relevant data
@@ -151,6 +176,6 @@ Vinay Udyawer <br> <v.udyawer@aims.gov.au> <br> Australian Institute of Marine S
 <br>
 
 **Vignette version**
-0.0.1 (20 Aug 2019)
+0.1.1 (28 March 2020)
 
 

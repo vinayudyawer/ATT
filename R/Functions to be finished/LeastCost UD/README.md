@@ -80,8 +80,9 @@ cost.raster %>%
 
 <br>
 
+Create a transition layer to speed up UD estimation if using lots of individuals in the same study site. If not provided the function just calculates it the same way using the cost layer, but that takes up additional time.
+
 ```{r}
-## Create a transition layer to speed up UD estimation if using lots of individuals in the same study site
 cost.in_utm <- projectRaster(cost.raster, crs = CRS("+init=epsg:3577"), method = "ngb")
 cost.ras <- resample(cost.in_utm, raster(extent(cost.in_utm), res = 50), method = "ngb")
 projection(cost.ras) <- CRS("+init=epsg:3577")

@@ -6,7 +6,7 @@ library(raster)
 library(mapview)
 
 library(VTrack)
-source("~/Documents/GitHub/ATT/R/Functions to be finished/LeastCost UD/2019-08-20_lcDistance.R")
+source("2020-03-21_lcDistance.R")
 
 data("PointsCircuitous_crocs")
 statinfo <- 
@@ -57,42 +57,33 @@ taginfo <-
             tag_expected_life_time_days = 1000, tag_status = "Deployed", sex = NA, measurement = NA,
             dual_sensor_tag = F)
 
-ATTdata <- setupData(Tag.Detections = tagdata %>% filter(Transmitter.Name %in% "Gecko") %>% slice(1:500), 
+Jacko_tagdata <- tagdata %>% filter(Transmitter.Name %in% "Robert D")
+
+ATTdata <- setupData(Tag.Detections = Jacko_tagdata, 
                      Station.Information = statinfo, 
                      Tag.Metadata = taginfo, 
                      source = "VEMCO")
 
 # abacusPlot(ATTdata, new.window = F)
+coa_dat <- COA(ATTdata)
 
-COAdata <- COA(ATTdata)
+coa_sf <-
+  coa_dat %>% 
+  st_as_sf(coords = c("Longitude.coa", "Latitude.coa"), crs = 4326)
 
-## Cost layer
+## Cost and Transition layers
+wenlock.raster <- raster("data/wenlock raster UTM.tif") %>% ratify()
+wenlock.raster[values(wenlock.raster) %in% 0] <- 1000
 
-statinfo.sp <-
-  statinfo %>% 
-  st_as_sf(coords=c("station_longitude", "station_latitude"), crs = 4326) %>% 
-  st_transform(crs = 3577)
+cost <- projectRaster(wenlock.raster, crs = CRS("+init=epsg:4326"))
 
+trCost <- transition(1/wenlock.raster, mean, directions = 16)
+trans <- geoCorrection(trCost, type = "c")
 
-aus <- st_read(file.choose(), crs = 4326)
-
-map <- 
-  aus %>% 
-  st_transform(crs = 3577) %>% 
-  st_crop(st_bbox(extent(statinfo.sp) + 10000)) %>% 
-  st_buffer(dist = 50)
-
-cost.raster <- rasterize(map, raster(extent(map), resolution = 10), 1)
-cost.raster[is.na(values(cost.raster))] <- 1000
-projection(cost.raster) <- CRS("+init=epsg:3577")
-
-cost <- projectRaster(cost.raster, crs = CRS("+init=epsg:4326"))
-
-plot(cost, col = viridis::viridis(2))
-plot(cost.raster, col = viridis::viridis(2))
+mapview(raster(trans)) + coa_sf
 
 least.costUD <- lcDistance(ATTdata = ATTdata, ## Station information, tagdata and taginfo data all in one ATTdata object
-                           cost = cost,## Cost raster for your study site. If NULL it finds coastline data from OSM server
+                           trans = trans,     ## Transition layer in UTM (meters)
                            ll_epsg = 4326,    ## EPSG code for the raw data (in lat/long)
                            utm_epsg = 3577,   ## EPSG code for the Projected CRS for your study site (in meters)
                            timestep = 60,     ## Timestep in minutes for COA estimation (see COA() function for details of timestep)

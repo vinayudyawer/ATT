@@ -130,7 +130,7 @@ lcDistance <- function(ATTdata, cost = NULL, trans = NULL, utm_epsg, ll_epsg = 4
     spdata_ll %>%
     as_Spatial %>%
     as_tibble %>%
-    rename(Longitude = coords.x1, Latitude = coords.x2) %>%
+    dplyr::rename(Longitude = coords.x1, Latitude = coords.x2) %>%
     mutate(Transit.time_sec = as.numeric(difftime(Date.Time, lag(Date.Time), units = "sec")),
            Distance_m = NA) %>%
     dplyr::select(-step)

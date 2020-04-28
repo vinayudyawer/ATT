@@ -80,8 +80,9 @@ cost.raster %>%
 
 <br>
 
+Create a transition layer to speed up UD estimation if using lots of individuals in the same study site. If not provided the function just calculates it the same way using the cost layer, but that takes up additional time.
+
 ```{r}
-## Create a transition layer to speed up UD estimation if using lots of individuals in the same study site
 cost.in_utm <- projectRaster(cost.raster, crs = CRS("+init=epsg:3577"), method = "ngb")
 cost.ras <- resample(cost.in_utm, raster(extent(cost.in_utm), res = 50), method = "ngb")
 projection(cost.ras) <- CRS("+init=epsg:3577")
@@ -109,7 +110,8 @@ The lcDistance function:
 
 <br>
 The detection data needs to be in a ATTdata object format (from VTrack), so it can recognise variables correctly. At the moment, the function only works for a single individual at a time. More development is required to make this run across multiple tags.
-You can supply your own cost layer as calculated above. But if you dont have it, the function can extract coastline data from the OpenStreetMap server and calculate a rough cost layer. The OSM server may not have a very accurate coastline sometimes, so check to see if you can find a more accurate or updated polygon for land in your study site.
+
+You can supply your own cost or transition layers as calculated above. But if you dont have it, the function can extract coastline data from the OpenStreetMap server and calculate a rough cost layer. The OSM server may not have a very accurate coastline sometimes, so check to see if you can find a more accurate or updated polygon for land in your study site.
 
 ```{r}
 least.costUD <- lcDistance(ATTdata = ATTdata,  ## Station information, tagdata and taginfo data all in one ATTdata object

@@ -11,7 +11,7 @@ get_map <- function(statinfo, expand = 1){
     st_as_sf(coords = c("station_longitude", "station_latitude"),
              crs = 4326)
 
-  bb <- extent(statinfo_sf) + expand
+  bb <- extent(statinfo_sf) + (expand * 2)
 
   polycoast <-
     opq(bbox = bb[c(1, 3, 2, 4)]) %>%
@@ -86,7 +86,8 @@ get_map <- function(statinfo, expand = 1){
     st_buffer(dist = 0) %>%
     st_difference(riverpol %>% st_buffer(dist = 0)) %>%
     as_Spatial() %>%
-    st_as_sf
+    st_as_sf %>%
+    st_crop(bb - expand)
 
   return(studymap)
 }

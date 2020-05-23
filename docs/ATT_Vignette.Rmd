@@ -73,11 +73,10 @@ running the function for a large number of tags.
 
 # Installation
 
-The Animal Tracking Toolbox can be installed from the CRAN repository
-```{r, include=TRUE, eval=FALSE}
-install.packages("VTrack")
+The Animal Tracking Toolbox currently is only available in the development version of 'VTrack' (version > 2.0)
+The development version can be installed from GitHub:
 
-## The development version can be also be accessed from GitHub:
+```{r, include=TRUE, eval=FALSE}
 install.packages("devtools")
 devtools::install_github("rossdwyer/VTrack")
 ```
@@ -202,12 +201,10 @@ Receiver metadata input format is based on IMOS ATF metadata structure
 # Usage
 
 ## Load the VTrack library
-```{r, eval=FALSE, message=FALSE}
+```{r, eval=TRUE, message=FALSE}
 library(VTrack)
 ```
-```{r, eval=TRUE, message=FALSE, include=FALSE}
-library(ATT)
-```
+
 
 ## Setup data for smooth functioning with other ATT functions
 ```{r, eval=TRUE, message=FALSE, warning=FALSE}
@@ -218,18 +215,18 @@ data(taginfo)
 data(statinfo)
 
 ## Setup data for use with the Animal Tracking Toolbox
-ATTdata<- setupData(Tag.Detections = IMOSdata, 
-                    Tag.Metadata = taginfo, 
-                    Station.Information = statinfo, 
-                    source="IMOS")
+ATTdata <- setupData(Tag.Detections = IMOSdata, 
+                     Tag.Metadata = taginfo, 
+                     Station.Information = statinfo, 
+                     source = "IMOS")
 ```
 
 
 ## Calculating detection metrics
 ```{r, eval=TRUE, message=FALSE, warning=FALSE}
 ## Calculate detecion metrics with monthly subsets chosen
-detSum<-detectionSummary(ATTdata,  
-                         sub = "%Y-%m")
+detSum <- detectionSummary(ATTdata,  
+                           sub = "%Y-%m")
 ```
 
 `detectionSummary()` outputs a list object with two components, `$Overall`: detection metrics for the full period of the tag and `$Subsetted`: detection metrics for weekly or monthly temporal subsets depending on the `sub` argument. 
@@ -248,15 +245,15 @@ detSum$Subsetted
 
 ## Create an abacus plot
 ```{r, eval=FALSE}
-abacusPlot(ATTdata)
+abacusPlot(ATTdata = ATTdata)
 ```
 <img src="images/Fig3.png"/>
 <br>
 ```{r, eval=FALSE}
 ## Create a facetted abacus plot for individuals 77523274 and 77523147
-abacusPlot(ATTdata, 
-           id=c("77523274","77523147"), 
-           facet=TRUE)
+abacusPlot(ATTdata = ATTdata, 
+           id = c("77523274","77523147"), 
+           facet = TRUE)
 ```
 <img src="images/Fig4.png"/>
 <br>
@@ -265,12 +262,12 @@ abacusPlot(ATTdata,
 
 ```{r, eval=FALSE}
 ## Calculate dispersal metrics
-dispSum<-dispersalSummary(ATTdata)
+dispSum <- dispersalSummary(ATTdata)
 ```
 
 ```{r, echo=FALSE, results='hide', fig.keep='all', message = FALSE}
 ## Calculate dispersal metrics
-dispSum<-dispersalSummary(ATTdata)
+dispSum <- dispersalSummary(ATTdata)
 ```
 
 `dispersalSummary()` outputs a tibble data frame object with step distances and step bearings calculated for each detection. The number of rows will be equal to the raw detection data, therefore it may take longer to process dispersal metrics for a large number of animals or for large datasets.
@@ -284,9 +281,9 @@ dispSum
 ## Calculating activity space metrics
 ```{r, eval=TRUE, message=FALSE, warning=FALSE}
 ## First, estimate Short-term center of activities
-COAdata<-COA(ATTdata, 
-             timestep = 60, ## timestep bin used to estimate centers of activity (in minutes)
-             split = TRUE)
+COAdata <- COA(ATTdata = ATTdata, 
+               timestep = 60, ## timestep bin used to estimate centers of activity (in minutes)
+               split = TRUE)
 ```
 
 `COA()` produces a single tibble data frame with centers of activity positions estimated for each timestep bin when `split = FALSE`; and a list object with centers of activity positions for each individual when `split = TRUE`.
@@ -309,14 +306,14 @@ Once COA estimates are estimated we can calculate activity space metrics:
 ## Define projected Coordinate Reference System 
 # projected coordinate systems should signify distance in meters so the output area values are in sq meters
 # (here epsg:3577 refers to the GDA94 Australian Albers projection)
-proj<-CRS("+init=epsg:3577")
+proj <- sp::CRS("+init=epsg:3577")
 
 ## HRSummary() requires calculation of COAs first
 ## Estimate 100% Maximum Convex Polygon (MCP) areas
-mcp_est <- HRSummary(COAdata, 
-                     projCRS=proj, 
-                     type="MCP", 
-                     cont=100,
+mcp_est <- HRSummary(COAdata = COAdata, 
+                     projCRS = proj, 
+                     type = "MCP", 
+                     cont = 100,
                      sub = "%Y-%m")
 ```
 
@@ -324,14 +321,14 @@ mcp_est <- HRSummary(COAdata,
 ## Define projected Coordinate Reference System 
 # projected coordinate systems should signify distance in meters so the output area values are in sq meters
 # (here epsg:3577 refers to the GDA94 Australian Albers projection)
-proj<-CRS("+init=epsg:3577")
+proj <- sp::CRS("+init=epsg:3577")
 
 ## HRSummary() requires calculation of COAs first
 ## Estimate 100% Maximum Convex Polygon (MCP) areas
-mcp_est <- HRSummary(COAdata, 
-                     projCRS=proj, 
-                     type="MCP", 
-                     cont=100,
+mcp_est <- HRSummary(COAdata = COAdata, 
+                     projCRS = proj, 
+                     type = "MCP", 
+                     cont = 100,
                      sub = "%Y-%m")
 ```
 `HRSummary()` outputs a list object with two components, `$Overall`: activity space metrics for the full period of the tag and `$Subsetted`: activity space metrics for weekly or monthly temporal subsets depending on the `sub` argument.
@@ -347,11 +344,11 @@ Other types of activity space metrics can also be calculated (e.g. fixed KUD usi
 ```{r, eval=FALSE, message=FALSE, warning=FALSE}
 ##*** Warning: the following might take a little while to run! ***##
 ## Estimate 50% and 95% fixed Kernel Utilisation Distribution ('fKUD') contour areas with cumulative metrics calculated
-fkud_est<-HRSummary(COAdata, 
-                   projCRS=proj, 
-                   type="fKUD",
-                   cont=c(50,95),
-                   cumulative=TRUE)  
+fkud_est <- HRSummary(COAdata = COAdata, 
+                      projCRS = proj, 
+                      type = "fKUD",
+                      cont = c(50,95),
+                      cumulative = TRUE)  
 ```
 <br>
 
@@ -361,11 +358,11 @@ MCP polygons and probability distributions associated with fKUD and BBKUDs can b
 
 ```{r, echo=TRUE, results='hide', fig.keep='all', message = FALSE, warning=FALSE}
 ## Estimate 20%, 50% and 95% Brownian Bridge Kernel Utilisation Distribution ('BBKUD') contour areas and store polygons
-BBkud_est<-HRSummary(COAdata, 
-                   projCRS=proj, 
-                   type="BBKUD", 
-                   cont=c(20,50,95), 
-                   storepoly=TRUE)
+BBkud_est <- HRSummary(COAdata = COAdata, 
+                       projCRS = proj, 
+                       type = "BBKUD", 
+                       cont = c(20,50,95), 
+                       storepoly = TRUE)
 ```
 ```{r, eval = TRUE}
 summary(BBkud_est)
@@ -379,8 +376,8 @@ The `$Spatial.Objects` list object in itself consists of a nested list. The exam
     |---> `$Overall`    : tibble data frame with activity space metrics for full tag life
     |---> `$Subsetted`  : tibble data frame with activity space metrics for each temporal subset
     |---> `$Spatial.Objects` : list object with as many components as unique Tag.IDs in the data
-                |---> `51448633`
-                |---> `77523307`
+                |---> `$51448633`
+                |---> `$77523307`
                           |----> `$BBKUD_full` : a raster object with the BBKUD for the full tag life
                           |----> `$BBKUD_sub`  : a raster stack object with the BBKUD for each temporal subset
                                       |-----> `$X2013.05` : raster object for subset '2013-05' (May 2013)
@@ -395,7 +392,8 @@ The `$Spatial.Objects` list object in itself consists of a nested list. The exam
 ```{r, eval=TRUE, message=FALSE, warning=FALSE}
 ## Base plots using raster
 # Activity space for full tag life
-
+library(tidyverse)
+library(lubridate)
 library(raster)
 library(viridis) ## access more color palettes!
 
@@ -599,4 +597,4 @@ Xavier Hoenner <br> <xavier.hoenner@utas.edu.au> <br> Australian Ocean Data Netw
 <br>
 
 **Vignette version**
-1.0.2 (28 Nov 2018)
+1.0.2 (23 May 2020)

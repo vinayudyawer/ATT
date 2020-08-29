@@ -1,9 +1,9 @@
 {
-    "path" : "~/Documents/GitHub/ATT/docs",
-    "sortOrder" : [
+    "path": "~/Documents/GitHub/ATT/docs",
+    "sortOrder": [
         {
-            "ascending" : true,
-            "columnIndex" : 2
+            "ascending": true,
+            "columnIndex": 2
         }
     ]
 }

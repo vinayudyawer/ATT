@@ -6,6 +6,7 @@ library(sf)
 library(raster)
 library(mapview)
 library(gdistance)
+library(spatstat)
 
 ## Installing VTrack from github if you dont have the recent version
 # devtools::install_github("rossdwyer/VTrack")
@@ -23,30 +24,17 @@ ATTdata <- setupData(Tag.Detections = tagdata,
                      Station.Information =  statinfo, 
                      source = "IMOS")
 
+## Run lcDistance function
 
-### Convert ATT to residence
-residence <- ATT_to_residence(ATTdata = ATTdata, 
-                              .iResidenceThreshold = 1, 
-                              .iTimeThreshold = 3600, 
-                              .iCores = 4)
+UDobj <- lcDistance(ATTdata, utm_epsg = 3577)
+
+plot.lcUD(UDobj)
 
 
-### Create line segments of non-residence events
-statinfo <- ATTdata$Station.Information %>% st_as_sf(coords = c("Station.Longitude", "Station.Latitude"), crs = 4326, remove = F)
 
-costras <- extract_costras(statinfo = statinfo, 
-                           utm_epsg = 3577, 
-                           cost.res = 50)
 
-trans <- cost_to_trans(cost = costras, 
-                       utm_epsg = 3577, 
-                       cost.res = 50, 
-                       directions = 16) 
 
-traj <- nonresidence_to_traj(residence = residence, 
-                             trans = trans, 
-                             utm_epsg = 3577, 
-                             ll_epsg = 4326)
+
 
 
 
